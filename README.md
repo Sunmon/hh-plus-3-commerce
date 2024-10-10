@@ -160,3 +160,34 @@ Swagger
 
 - Swagger UI: http://localhost:8080/swagger-ui/index.html
 - OpenAPI 명세(JSON): http://localhost:8080/v3/api-docs
+
+상품 정보 조회 (GET /api/v1/products/{id})
+
+	•	200 상품 정보 조회 성공
+	•	404 상품을 찾을 수 없음
+	•	500 상품 정보 조회 실패
+
+상품 주문/결제 (POST /api/v1/products/{id}/orders)
+
+	•	200 주문 성공
+	•	400 잘못된 파라미터
+	•	422 잔액 부족
+	•	422 상품 재고 부족
+	•	500 주문 실패
+
+상위 상품 조회 (GET /api/v1/products/top)
+
+	•	200 인기상품 조회 성공
+	•	500 인기상품 조회 실패
+
+유저 잔액 조회 (GET /api/v1/users/{id}/balance)
+
+	•	200 잔액 조회 성공
+	•	404 잘못된 파라미터
+	•	500 잔액 조회 실패
+
+유저 잔액 충전 (POST /api/v1/users/{id}/balance)
+
+	•	200 잔액 충전 성공
+	•	400 잘못된 파라미터
+	•	500 잔액 충전 실패
