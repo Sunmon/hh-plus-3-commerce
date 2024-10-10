@@ -72,6 +72,7 @@ sequenceDiagram
     participant Order_DB
     participant Pay_Server
     participant Pay_DB
+    participant External_Server
     User->>+Order_Server: 상품 주문 (유저id, 상품id, 수량)
     Order_Server->>+Order_DB: 상품 정보 조회
     Order_DB-->>-Order_Server: 상품 정보 리턴(상품 id, 가격, 재고)
@@ -113,5 +114,7 @@ sequenceDiagram
     opt 히스토리 추가 실패
     Order_Server-->User: 오류 응답 반환(주문 실패)
     end
+    Order_Server-->External_Server: 주문 완료 API 호출 (유저id, 상품id, 주문개수)
+    External_Server-->Order_Server: 응답 리턴(주문완료)
     Order_Server-->-User: 응답 리턴(유저id, 상품id, 수량)
 ```
