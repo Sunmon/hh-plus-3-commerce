@@ -118,3 +118,45 @@ sequenceDiagram
     External_Server-->Order_Server: 응답 리턴(주문완료)
     Order_Server-->-User: 응답 리턴(유저id, 상품id, 수량)
 ```
+
+## ERD
+
+https://github.com/Sunmon/hh-plus-3-commerce/issues/12 에 업로드 해두었습니다.
+
+## 기본 패키지 구조
+
+도메인별로 묶는 형식을 사용한다.
+
+레이어별로 나누는 형식은 (Controller, Service, Repository, Model) 파일을 찾아보기 어려웠다.
+
+따라서 어떤 기능이 구현되었는지 직관적으로 알아볼 수 있도록 도메인별로 묶어 관리한다.
+
+또한 추후 서비스를 분리하거나 확장이 필요할 때 도메인째로 분리하면 되기 때문에 유리할 것이다.
+
+```
+--- src
+    ├── domain
+    │   ├── Account
+    │   │   ├── AccountController
+    │   │   ├── AccountService
+    │   │   ├── AccountRepository
+    │   │   ├── AccountEntity
+    │   │   └── dto
+    │   │       └── Account
+    │   └── Payment
+    │       ├── ...
+
+```
+
+## 기술 스택
+
+- DB: MySQL, H2(테스트용), Redis(필요에 따라 추가)
+- MockAPI: Swagger 사용. (추후 API 명세서로 사용할 것도 고려하여 Swagger로 선정. Spring Rest Docs는 인터렉티브하지 않음. 스웨거는 FE쪽에서 데이터를 변경해서 테스트 가능함)
+- spring-retry: 재시도 로직 구현 (필요에 따라 추가)
+
+## API 명세
+
+Swagger
+
+- Swagger UI: http://localhost:8080/swagger-ui/index.html
+- OpenAPI 명세(JSON): http://localhost:8080/v3/api-docs
