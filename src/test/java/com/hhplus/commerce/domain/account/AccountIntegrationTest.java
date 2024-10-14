@@ -39,6 +39,7 @@ public class AccountIntegrationTest {
         // Then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         AccountResponse accountResponse = objectMapper.readValue(response.getContentAsString(), AccountResponse.class);
-        assertThat(accountResponse.id()).isGreaterThan(0L);
+        assertThat(accountResponse.id()).isEqualTo(accountId);
+        assertThat(accountResponse.balance()).isGreaterThanOrEqualTo(0L);
     }
 }

@@ -2,6 +2,13 @@ package com.hhplus.commerce.domain.account;
 
 import com.hhplus.commerce.domain.account.entity.Account;
 
+import java.util.Optional;
+
+//@Repository
 public interface AccountRepository {
-    Account findById(Long accountId);
+    Optional<Account> findById(Long accountId);
+
+    Account findByIdOrThrow(Long accountId) throws IllegalArgumentException;
+
+    Account insert(Account account);
 }
