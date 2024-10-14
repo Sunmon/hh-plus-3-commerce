@@ -1,7 +1,7 @@
 package com.hhplus.commerce.domain.user;
 
 import com.hhplus.commerce.common.exception.ErrorResponse;
-import com.hhplus.commerce.domain.user.dto.AccountResponse;
+import com.hhplus.commerce.domain.account.dto.AccountResponse;
 import com.hhplus.commerce.domain.user.dto.ChargeRequest;
 import com.hhplus.commerce.domain.user.dto.ChargeResponse;
 import io.swagger.v3.oas.annotations.Operation;
