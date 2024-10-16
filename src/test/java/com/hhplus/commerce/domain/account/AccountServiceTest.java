@@ -23,7 +23,7 @@ public class AccountServiceTest {
     void getAccountInfo() {
         //given
         Long accountId = 1L;
-        accountRepository.insert(new Account(accountId));
+        accountRepository.insert(new Account());
         // when
         Account account = accountService.getAccountInfo(accountId);
         // then
@@ -38,6 +38,37 @@ public class AccountServiceTest {
         // when
         // then
         assertThatThrownBy(() -> accountService.getAccountInfo(accountId))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+
+    @DisplayName("계좌 충전 테스트")
+    @Test
+    void deposit() {
+        //given
+        Long accountId = 1L;
+        Long amount = 1000L;
+        accountRepository.insert(new Account());
+
+        // when
+        Account result = accountService.deposit(accountId, amount);
+
+        // then
+        assertThat(result.getId()).isEqualTo(accountId);
+        assertThat(result.getBalance()).isEqualTo(amount);
+    }
+
+
+    @DisplayName("존재하지 않는 계좌 ID로 충전 시도시 오류를 발생시켜야 한다.")
+    @Test
+    void depositWrongAccount() {
+        //given
+        Long accountId = 45678L;
+        Long amount = 1000L;
+
+        // when
+        // then
+        assertThatThrownBy(() -> accountService.deposit(accountId, amount))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 

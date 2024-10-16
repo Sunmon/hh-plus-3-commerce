@@ -11,4 +11,6 @@ public interface AccountRepository {
     Account findByIdOrThrow(Long accountId) throws IllegalArgumentException;
 
     Account insert(Account account);
+
+    Account save(Account account);
 }

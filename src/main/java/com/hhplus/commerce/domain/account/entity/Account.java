@@ -1,6 +1,7 @@
 package com.hhplus.commerce.domain.account.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Account {
+    @Id
     private Long id;
     private Long balance;
     private Long userId;
@@ -24,5 +26,13 @@ public class Account {
 
     public void assignId(Long id) {
         this.id = id;
+    }
+
+    public Account deposit(Long amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("음수 입금 오류");
+        }
+        this.balance += amount;
+        return this;
     }
 }

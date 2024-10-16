@@ -17,4 +17,10 @@ class AccountServiceImpl implements AccountService {
     public Account getAccountInfo(Long accountId) throws IllegalArgumentException {
         return accountRepository.findByIdOrThrow(accountId);
     }
+
+    @Override
+    public Account deposit(Long accountId, Long amount) throws IllegalArgumentException {
+        Account account = accountRepository.findByIdOrThrow(accountId);
+        return accountRepository.save(account.deposit(amount));
+    }
 }

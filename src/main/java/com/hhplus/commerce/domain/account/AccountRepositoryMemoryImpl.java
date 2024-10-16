@@ -33,6 +33,13 @@ class AccountRepositoryMemoryImpl implements AccountRepository {
         return account;
     }
 
+    @Override
+    public Account save(Account account) {
+        db.put(account.getId(), account);
+        return db.get(account.getId());
+    }
+
+
     private long nextId() {
         return atomicId.getAndIncrement();
     }
