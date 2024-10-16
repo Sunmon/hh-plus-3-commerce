@@ -1,5 +1,16 @@
 package com.hhplus.commerce.domain.product.dto;
 
-public record ProductResponse(Long id, String name, int price, int stockQuantity) {
+import com.hhplus.commerce.domain.product.entity.Product;
+
+public record ProductResponse(Long productId,
+                              String name,
+                              Long price,
+                              Long stock,
+                              Boolean inStock
+
+) {
+    public ProductResponse(Product product) {
+        this(product.getId(), product.getName(), product.getPrice(), product.getStock(), product.getInStock());
+    }
 
 }

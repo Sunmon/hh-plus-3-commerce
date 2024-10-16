@@ -4,6 +4,7 @@ import com.hhplus.commerce.common.exception.ErrorResponse;
 import com.hhplus.commerce.domain.product.dto.ProductOrderRequest;
 import com.hhplus.commerce.domain.product.dto.ProductOrderResponse;
 import com.hhplus.commerce.domain.product.dto.ProductResponse;
+import com.hhplus.commerce.domain.product.entity.Product;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,6 +22,7 @@ import java.util.List;
 @Tag(name = "상품 API")
 @RequiredArgsConstructor
 public class ProductController {
+    final private ProductService productService;
 
     @Operation(summary = "상품 정보 조회")
     @ApiResponses(value = {
@@ -30,8 +32,8 @@ public class ProductController {
     })
     @GetMapping(value = "/{id}")
     public ResponseEntity<ProductResponse> productInfo(@PathVariable Long id) {
-        ProductResponse productResponse = new ProductResponse(id, "상품명", 10000, 123);
-        return ResponseEntity.ok(productResponse);
+        Product product = productService.getProduct(id);
+        return ResponseEntity.ok(new ProductResponse(product));
     }
 
     @Operation(summary = "상품 주문/결제")
@@ -56,11 +58,11 @@ public class ProductController {
     @GetMapping(value = "/top")
     public ResponseEntity<List<ProductResponse>> productsTop() {
         List<ProductResponse> productResponse = List.of(
-                new ProductResponse(1L, "상품명1", 10000, 123),
-                new ProductResponse(2L, "상품명2", 10000, 123),
-                new ProductResponse(3L, "상품명3", 10000, 123),
-                new ProductResponse(4L, "상품명4", 10000, 123),
-                new ProductResponse(5L, "상품명5", 10000, 123)
+//                new ProductResponse(1L, "상품명1", 10000, 123),
+//                new ProductResponse(2L, "상품명2", 10000, 123),
+//                new ProductResponse(3L, "상품명3", 10000, 123),
+//                new ProductResponse(4L, "상품명4", 10000, 123),
+//                new ProductResponse(5L, "상품명5", 10000, 123)
         );
 
         return ResponseEntity.ok(productResponse);
