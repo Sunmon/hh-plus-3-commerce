@@ -11,10 +11,7 @@ import com.hhplus.commerce.domain.order.entity.Order;
 import com.hhplus.commerce.domain.product.ProductRepository;
 import com.hhplus.commerce.domain.product.ProductRepositoryMemoryImpl;
 import com.hhplus.commerce.domain.product.entity.Product;
-import com.hhplus.commerce.domain.stock.StockRepository;
-import com.hhplus.commerce.domain.stock.StockRepositoryMemoryImpl;
-import com.hhplus.commerce.domain.stock.StockService;
-import com.hhplus.commerce.domain.stock.StockServiceImpl;
+import com.hhplus.commerce.domain.stock.*;
 import com.hhplus.commerce.domain.stock.entity.Stock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -39,6 +36,7 @@ class OrderProcessServiceTest {
     StockService stockService;
     AccountService accountService;
     OrderItemRepository orderItemRepository;
+    private StockHistoryRepository stockHistoryRepository;
 
     @BeforeEach
     void beforeEach() {
@@ -47,10 +45,11 @@ class OrderProcessServiceTest {
         accountRepository = new AccountRepositoryMemoryImpl();
         orderRepository = new OrderRepositoryMemoryImpl();
         orderItemRepository = new OrderItemRepositoryMemoryImpl();
+        stockHistoryRepository = new StockHistoryRepositoryMemoryImpl();
 
         orderService = new OrderServiceImpl(orderRepository);
 //        orderItemService = new OrderItemServiceImpl(orderItemRepository);
-        stockService = new StockServiceImpl(stockRepository);
+        stockService = new StockServiceImpl(stockRepository, stockHistoryRepository);
         accountService = new AccountServiceImpl(accountRepository);
 
         orderProcessService = new OrderProcessServiceImpl(orderService, orderItemService, stockService, accountService);

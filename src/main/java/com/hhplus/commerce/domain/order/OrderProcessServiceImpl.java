@@ -4,6 +4,7 @@ import com.hhplus.commerce.domain.account.AccountService;
 import com.hhplus.commerce.domain.order.dto.OrderItemRequest;
 import com.hhplus.commerce.domain.order.dto.OrderItems;
 import com.hhplus.commerce.domain.order.entity.Order;
+import com.hhplus.commerce.domain.order.entity.OrderItem;
 import com.hhplus.commerce.domain.stock.StockService;
 import com.hhplus.commerce.domain.stock.Stocks;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,10 @@ public class OrderProcessServiceImpl implements OrderProcessService {
         } catch (RuntimeException e) {
             orderService.updateOrderStatus(order, OrderStatus.ORDER_FAILED);
             throw e;
+        } finally {
+            for (OrderItem orderItem : orderItems.getOrderItems()) {
+                stockService.insertHistory(order.getId(), orderItem.getProduct().getId(), orderItem.getQuantity(), orderItem.getPrice(), order.getStatus());
+            }
         }
 
         // 계좌 업데이트

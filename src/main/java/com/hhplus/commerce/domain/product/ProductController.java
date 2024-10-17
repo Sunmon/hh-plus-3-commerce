@@ -4,6 +4,7 @@ import com.hhplus.commerce.common.exception.ErrorResponse;
 import com.hhplus.commerce.domain.product.dto.ProductOrderRequest;
 import com.hhplus.commerce.domain.product.dto.ProductOrderResponse;
 import com.hhplus.commerce.domain.product.dto.ProductStockResponse;
+import com.hhplus.commerce.domain.product.entity.Product;
 import com.hhplus.commerce.domain.stock.StockService;
 import com.hhplus.commerce.domain.stock.entity.Stock;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -62,7 +64,7 @@ public class ProductController {
             @ApiResponse(responseCode = "500", description = "인기상품 조회 실패", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping(value = "/top")
-    public ResponseEntity<List<ProductStockResponse>> productsTop() {
+    public ResponseEntity<List<Product>> productsTop() {
         List<ProductStockResponse> productStockResponse = List.of(
 //                new ProductResponse(1L, "상품명1", 10000, 123),
 //                new ProductResponse(2L, "상품명2", 10000, 123),
@@ -71,6 +73,7 @@ public class ProductController {
 //                new ProductResponse(5L, "상품명5", 10000, 123)
         );
 
-        return ResponseEntity.ok(productStockResponse);
+        List<Product> products = productService.getTopProducts(3, LocalDateTime.now().minusDays(3), LocalDateTime.now());
+        return ResponseEntity.ok(products);
     }
 }

@@ -38,7 +38,6 @@ public class Order {
 
     public static Order of(Long orderId, Long accountId, OrderStatus orderStatus, Long totalPrice) {
         return new Order(orderId, accountId, orderStatus, totalPrice, LocalDateTime.now(), LocalDateTime.now());
-
     }
 
 

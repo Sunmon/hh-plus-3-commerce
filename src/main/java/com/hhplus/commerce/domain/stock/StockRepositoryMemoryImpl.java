@@ -28,7 +28,7 @@ class StockRepositoryMemoryImpl implements StockRepository {
 
     @Override
     public List<Stock> findByProductIdIn(List<Long> productIds) {
-        return null;
+        return db.values().stream().filter(stock -> productIds.contains(stock.getProduct().getId())).toList();
     }
 
     private long nextId() {

@@ -21,10 +21,13 @@ class StockServiceTest {
     //    @Autowired
     private ProductRepository productRepository;
 
+    private StockHistoryRepository stockHistoryRepository;
+
     @BeforeEach
     void beforeEach() {
         stockRepository = new StockRepositoryMemoryImpl();
-        stockService = new StockServiceImpl(stockRepository);
+        stockHistoryRepository = new StockHistoryRepositoryMemoryImpl();
+        stockService = new StockServiceImpl(stockRepository, stockHistoryRepository);
         productRepository = new ProductRepositoryMemoryImpl();
     }
 
