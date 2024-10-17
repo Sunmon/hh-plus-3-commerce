@@ -13,7 +13,7 @@ class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public Product getProduct(Long productId) throws IllegalArgumentException {
+    public Product getProductWithStock(Long productId) throws IllegalArgumentException {
         return productRepository.findByIdOrThrow(productId);
     }
 }

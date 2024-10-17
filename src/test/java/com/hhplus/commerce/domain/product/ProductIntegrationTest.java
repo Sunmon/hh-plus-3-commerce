@@ -1,8 +1,9 @@
 package com.hhplus.commerce.domain.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hhplus.commerce.domain.product.dto.ProductResponse;
-import com.hhplus.commerce.domain.product.entity.Product;
+import com.hhplus.commerce.domain.product.dto.ProductStockResponse;
+import com.hhplus.commerce.domain.stock.StockRepository;
+import com.hhplus.commerce.domain.stock.entity.Stock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,13 +30,15 @@ public class ProductIntegrationTest {
 
     @Autowired
     private ProductService productService;
-    @Autowired
+    //    @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private StockRepository stockRepository;
 
     @BeforeEach
     void beforeEach() {
-        productRepository.insert(new Product());
-
+//        productRepository.insert(new Product());
+        stockRepository.insert(Stock.of(1L, 1L, 100L));
     }
 
 
@@ -44,12 +47,14 @@ public class ProductIntegrationTest {
     public void testGetProductInfo() throws Exception {
         // Given
         Long productId = 1L;
+        assertThat(productId).isEqualTo(1L);
+
+//        assertThat(productId).isEqualTo(1L);
 
         // When
 //        ProductREquest
 //        AccountRequest request = AccountRequest.of(accountId);
 //        Product
-
         // When
         MockHttpServletResponse response = mockMvc.perform(get(BASE_URL + "/" + productId)
                         .contentType(MediaType.APPLICATION_JSON))
@@ -58,9 +63,9 @@ public class ProductIntegrationTest {
 
         // Then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        ProductResponse productResponse = objectMapper.readValue(response.getContentAsString(), ProductResponse.class);
-        assertThat(productResponse.productId()).isGreaterThan(0L);
-        assertThat(productResponse.stock()).isGreaterThanOrEqualTo(0);
+        ProductStockResponse productStockResponse = objectMapper.readValue(response.getContentAsString(), ProductStockResponse.class);
+        assertThat(productStockResponse.productId()).isGreaterThan(0L);
+        assertThat(productStockResponse.stock()).isGreaterThanOrEqualTo(0);
 
     }
 }

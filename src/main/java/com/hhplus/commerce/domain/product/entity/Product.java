@@ -15,14 +15,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Long price;
-    private Long stock;
-    private Boolean inStock;
 
     @CreatedDate
     @Column(updatable = false, nullable = false)
@@ -32,7 +31,16 @@ public class Product {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public void assignId(Long id) {
+    public static Product of(Long id, String name, Long price) {
+        return new Product(id, name, price, LocalDateTime.now(), LocalDateTime.now());
+    }
+
+    public static Product of(Long id) {
+        return new Product(id, null, null, LocalDateTime.now(), LocalDateTime.now());
+    }
+
+    public Product assignId(Long id) {
         this.id = id;
+        return this;
     }
 }

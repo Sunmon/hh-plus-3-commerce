@@ -3,13 +3,11 @@ package com.hhplus.commerce.domain.product;
 import com.hhplus.commerce.domain.product.entity.Product;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
-class ProductRepositoryMemoryImpl implements ProductRepository {
+public class ProductRepositoryMemoryImpl implements ProductRepository {
     Map<Long, Product> db = new HashMap<>();
     AtomicLong atomicId = new AtomicLong(1L);
 
@@ -31,6 +29,17 @@ class ProductRepositoryMemoryImpl implements ProductRepository {
         product.assignId(nextId());
         db.put(product.getId(), product);
         return product;
+    }
+
+    @Override
+    public List<Product> saveAll(List<Product> products) {
+        List<Long> ids = new ArrayList<>();
+        products.forEach(product -> {
+            Product newItem = db.getOrDefault(product.getId(), product.assignId(nextId()));
+            db.put(newItem.getId(), newItem);
+            ids.add(newItem.getId());
+        });
+        return db.entrySet().stream().filter(entry -> ids.contains(entry.getKey())).map(Map.Entry::getValue).toList();
     }
 
     private long nextId() {

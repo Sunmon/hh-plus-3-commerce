@@ -26,7 +26,7 @@ public class ProductServiceTest {
         Long productId = 1L;
         productRepository.insert(new Product());
         // when
-        Product product = productService.getProduct(productId);
+        Product product = productService.getProductWithStock(productId);
         // then
         assertThat(product.getId()).isEqualTo(productId);
     }
@@ -38,7 +38,7 @@ public class ProductServiceTest {
         Long productId = 45678L;
         // when
         // then
-        assertThatThrownBy(() -> productService.getProduct(productId))
+        assertThatThrownBy(() -> productService.getProductWithStock(productId))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
