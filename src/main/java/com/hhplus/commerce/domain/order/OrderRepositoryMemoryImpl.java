@@ -20,7 +20,7 @@ public class OrderRepositoryMemoryImpl implements OrderRepository {
     }
 
     @Override
-    public Order findByIdOrThrow(Long orderId) throws IllegalArgumentException {
+    public Order findByIdOrElseThrow(Long orderId) throws IllegalArgumentException {
         if (orderId > atomicId.get()) {
             throw new IllegalArgumentException("ORDER_NOT_FOUND");
         }

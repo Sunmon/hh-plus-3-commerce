@@ -7,4 +7,6 @@ public interface AccountService {
     Account getAccountInfo(Long accountId) throws IllegalArgumentException;
 
     Account deposit(Long accountId, Long amount) throws IllegalArgumentException;
+
+    Account withdraw(Long accountId, Long amount) throws IllegalArgumentException;
 }

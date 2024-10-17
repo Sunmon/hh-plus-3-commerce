@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface AccountRepository {
     Optional<Account> findById(Long accountId);
 
-    Account findByIdOrThrow(Long accountId) throws IllegalArgumentException;
+    Account findByIdOrElseThrow(Long accountId) throws IllegalArgumentException;
 
     Account insert(Account account);
 

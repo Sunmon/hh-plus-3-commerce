@@ -11,13 +11,15 @@ import java.util.List;
 public record OrderResponse(
         @NotNull Long orderId,
         @NotNull Long userId,
-        @NotNull LocalDateTime createdAt,
-        @NotNull LocalDateTime updatedAt,
         @NotNull OrderStatus status,
         @NotNull Long totalPrice,
+
+        @NotNull LocalDateTime createdAt,
+        @NotNull LocalDateTime updatedAt,
         List<OrderItem> orderItems
 ) {
-    public OrderResponse(Order order) {
-        this(order.getId(), order.getUserId(), order.getCreatedAt(), order.getUpdatedAt(), order.getStatus(), order.getTotalPrice(), order.getOrderItems());
+    public OrderResponse(Order order, List<OrderItem> orderItems) {
+        this(order.getId(), order.getAccountId(), order.getStatus(), order.getTotalPrice(), order.getCreatedAt(), order.getUpdatedAt(), orderItems);
+//        this(order.getId(), order.getUserId(), order.getStatus(), order.getTotalPrice(), order.getCreatedAt(), order.getUpdatedAt(), List.of());
     }
 }

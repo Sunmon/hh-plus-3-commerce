@@ -4,6 +4,8 @@ import com.hhplus.commerce.domain.order.entity.Order;
 import com.hhplus.commerce.domain.order.entity.OrderItem;
 import com.hhplus.commerce.domain.product.ProductRepository;
 import com.hhplus.commerce.domain.product.ProductRepositoryMemoryImpl;
+import com.hhplus.commerce.domain.product.ProductService;
+import com.hhplus.commerce.domain.product.ProductServiceImpl;
 import com.hhplus.commerce.domain.product.entity.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,13 +20,22 @@ public class OrderItemServiceTest {
 //    private OrderService orderService;
 
     private OrderItemService orderItemService;
+    private OrderService orderService;
+    private OrderRepository orderRepository;
+
+    private ProductService productService;
+//    private ProductRepository productRepository;
 
     @BeforeEach
     void beforeEach() {
 //        orderRepository = new OrderRepositoryMemoryImpl();
         productRepository = new ProductRepositoryMemoryImpl();
         orderItemRepository = new OrderItemRepositoryMemoryImpl();
-        orderItemService = new OrderItemServiceImpl(orderItemRepository);
+
+        orderService = new OrderServiceImpl(orderRepository);
+
+        productService = new ProductServiceImpl(productRepository);
+        orderItemService = new OrderItemServiceImpl(orderItemRepository, orderService, productService);
 
 //        orderService = new OrderServiceImpl(orderRepository, orderItemRepository);
 //        Order order = new Order();

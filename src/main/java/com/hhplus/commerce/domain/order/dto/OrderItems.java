@@ -16,10 +16,15 @@ public class OrderItems {
                 .map(request -> OrderItem.of(request.productId(), request.quantity()))
                 .toList());
     }
-    
+
     public Long getTotalPrice() {
         return orderItems.stream()
                 .mapToLong(OrderItem::getTotalPrice)
                 .sum();
+    }
+
+    public List<Long> getProductIds() {
+        return orderItems.stream()
+                .mapToLong(orderItem -> orderItem.getProduct().getId()).boxed().toList();
     }
 }

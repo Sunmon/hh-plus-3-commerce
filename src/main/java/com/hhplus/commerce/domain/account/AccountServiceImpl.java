@@ -4,6 +4,7 @@ import com.hhplus.commerce.domain.account.entity.Account;
 import org.springframework.stereotype.Service;
 
 @Service
+public
 class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
@@ -15,12 +16,19 @@ class AccountServiceImpl implements AccountService {
 
     @Override
     public Account getAccountInfo(Long accountId) throws IllegalArgumentException {
-        return accountRepository.findByIdOrThrow(accountId);
+        return accountRepository.findByIdOrElseThrow(accountId);
     }
 
     @Override
     public Account deposit(Long accountId, Long amount) throws IllegalArgumentException {
-        Account account = accountRepository.findByIdOrThrow(accountId);
+//        Account account = accountRepository.findByIdOrElseThrow(accountId);
+        Account account = getAccountInfo(accountId);
         return accountRepository.save(account.deposit(amount));
+    }
+
+    @Override
+    public Account withdraw(Long accountId, Long amount) throws IllegalArgumentException {
+        Account account = getAccountInfo(accountId);
+        return accountRepository.save(account.withdraw(amount));
     }
 }

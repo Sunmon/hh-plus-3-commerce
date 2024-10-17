@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
+public
 class AccountRepositoryMemoryImpl implements AccountRepository {
     private final AtomicLong atomicId = new AtomicLong(1L);
     private final Map<Long, Account> db = new HashMap<>();
@@ -19,7 +20,7 @@ class AccountRepositoryMemoryImpl implements AccountRepository {
     }
 
     @Override
-    public Account findByIdOrThrow(Long accountId) throws IllegalArgumentException {
+    public Account findByIdOrElseThrow(Long accountId) throws IllegalArgumentException {
         if (!db.containsKey(accountId)) throw new IllegalArgumentException("ACCOUNT_NOT_FOUND");
         return db.get(accountId);
     }

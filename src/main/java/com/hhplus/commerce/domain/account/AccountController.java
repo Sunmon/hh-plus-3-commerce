@@ -14,10 +14,10 @@ public class AccountController {
 
     final private AccountService accountService;
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/{productId}")
     public ResponseEntity<AccountResponse> getAccount(@PathVariable Long id) {
 
-//        AccountResponse accountResponse = new AccountResponse(id, 10000L);
+//        AccountResponse accountResponse = new AccountResponse(productId, 10000L);
         AccountResponse accountResponse = new AccountResponse(accountService.getAccountInfo(id));
         return ResponseEntity.ok(accountResponse);
     }

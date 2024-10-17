@@ -8,12 +8,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
     @Transactional(readOnly = true)
     public Product getProductWithStock(Long productId) throws IllegalArgumentException {
-        return productRepository.findByIdOrThrow(productId);
+        return productRepository.findByIdOrElseThrow(productId);
+    }
+
+    @Override
+    public Product findById(Long productId) throws IllegalArgumentException {
+        return productRepository.findByIdOrElseThrow(productId);
     }
 }

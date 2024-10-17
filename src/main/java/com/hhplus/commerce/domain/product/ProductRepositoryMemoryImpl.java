@@ -17,7 +17,7 @@ public class ProductRepositoryMemoryImpl implements ProductRepository {
     }
 
     @Override
-    public Product findByIdOrThrow(Long productId) throws IllegalArgumentException {
+    public Product findByIdOrElseThrow(Long productId) throws IllegalArgumentException {
         if (productId > atomicId.get()) {
             throw new IllegalArgumentException("PRODUCT_NOT_FOUND");
         }

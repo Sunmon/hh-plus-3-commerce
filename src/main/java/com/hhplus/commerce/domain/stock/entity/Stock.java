@@ -30,6 +30,12 @@ public class Stock {
         return new Stock(id, Product.of(productId), stock, true);
     }
 
+
+    public static Stock of(Long id, Product product, Long stock) {
+        return new Stock(id, product, stock, true);
+    }
+
+
     public void assignId(Long id) {
         this.id = id;
     }
@@ -39,5 +45,9 @@ public class Stock {
             throw new IllegalArgumentException("NOT_ENOUGH_STOCK");
         }
         stock -= quantity;
+    }
+
+    public boolean isInStock() {
+        return inStock;
     }
 }

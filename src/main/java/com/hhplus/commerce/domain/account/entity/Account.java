@@ -24,15 +24,30 @@ public class Account {
         this.userId = null;
     }
 
+    public static Account of(Long id, long balance, Long userId) {
+        return new Account(id, balance, userId);
+    }
+
     public void assignId(Long id) {
         this.id = id;
     }
 
     public Account deposit(Long amount) {
         if (amount < 0) {
-            throw new IllegalArgumentException("음수 입금 오류");
+            throw new IllegalArgumentException("NOT_VALID_AMOUNT");
         }
         this.balance += amount;
+        return this;
+    }
+
+    public Account withdraw(Long amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("NOT_VALID_AMOUNT");
+        }
+        if (this.balance - amount < 0) {
+            throw new IllegalArgumentException("NOT_ENOUGH_BALANCE");
+        }
+        this.balance -= amount;
         return this;
     }
 }

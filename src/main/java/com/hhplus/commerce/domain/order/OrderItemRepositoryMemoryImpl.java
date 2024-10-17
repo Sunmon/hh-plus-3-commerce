@@ -25,7 +25,7 @@ public class OrderItemRepositoryMemoryImpl implements OrderItemRepository {
     }
 
     @Override
-    public List<OrderItem> findByOrderId(Long orderId) {
+    public List<OrderItem> findAllByOrderId(Long orderId) {
         return db.values().stream().filter(orderItem -> orderItem.getOrder().getId().equals(orderId)).toList();
     }
 
