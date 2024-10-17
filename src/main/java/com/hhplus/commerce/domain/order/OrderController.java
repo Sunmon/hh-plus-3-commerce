@@ -26,27 +26,11 @@ public class OrderController {
     private final OrderService orderService;
     private final OrderItemService orderItemService;
 
-//    @Operation(summary = "주문 ID를 통한 주문 조회")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "주문 성공", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderResponse.class))),
-//            @ApiResponse(responseCode = "400", description = "잘못된 파라미터", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
-//            @ApiResponse(responseCode = "422", description = "잔액 부족", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
-//            @ApiResponse(responseCode = "422", description = "상품 재고 부족", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
-//            @ApiResponse(responseCode = "500", description = "주문 실패", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
-//    })
-//    @PostMapping(value = "/")
-//    public ResponseEntity<OrderResponse> order(@PathVariable Long productId, @RequestBody Long userId, @RequestBody int quantity) {
-//        OrderResponse orderResponse = new OrderResponse(productId, userId, quantity);
-//        return ResponseEntity.ok(orderResponse);
-//    }
-
     @Operation(summary = "주문 ID를 통한 주문 조회")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "주문 성공", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderResponse.class))),
+            @ApiResponse(responseCode = "200", description = "주문 조회 성공", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderResponse.class))),
             @ApiResponse(responseCode = "400", description = "잘못된 파라미터", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "422", description = "잔액 부족", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "422", description = "상품 재고 부족", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "주문 실패", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
+            @ApiResponse(responseCode = "500", description = "주문 조회 실패", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping(value = "/{orderId}")
     public ResponseEntity<OrderResponse> getOrder(@PathVariable Long orderId) {
@@ -59,7 +43,7 @@ public class OrderController {
 
     @Operation(summary = "구매 진행")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "주문 성공", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderResponse.class))),
+            @ApiResponse(responseCode = "200", description = "구매 성공", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderResponse.class))),
             @ApiResponse(responseCode = "400", description = "잘못된 파라미터", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "422", description = "잔액 부족", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "422", description = "상품 재고 부족", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),

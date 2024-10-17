@@ -1,6 +1,7 @@
 package com.hhplus.commerce.domain.stock;
 
 import com.hhplus.commerce.domain.stock.entity.StockHistory;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -9,6 +10,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
+
+@Repository
 public class StockHistoryRepositoryMemoryImpl implements StockHistoryRepository {
     private final Map<Long, StockHistory> stockHistories = new HashMap<>();
     AtomicLong atomicId = new AtomicLong(1L);

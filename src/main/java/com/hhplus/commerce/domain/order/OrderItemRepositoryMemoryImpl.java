@@ -17,12 +17,10 @@ public class OrderItemRepositoryMemoryImpl implements OrderItemRepository {
     }
 
     @Override
-    public OrderItem findByProductIdOrElseThrow(Long productId) throws IllegalArgumentException {
-        if (productId > atomicId.get()) {
-            throw new IllegalArgumentException("PRODUCT_NOT_FOUND");
-        }
+    public OrderItem findByProductId(Long productId) throws IllegalArgumentException {
         return db.get(productId);
     }
+
 
     @Override
     public List<OrderItem> findAllByOrderId(Long orderId) {

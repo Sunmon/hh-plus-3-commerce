@@ -25,6 +25,8 @@ public class UserIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+
+    //    TODO 유저 컨트롤러 작성 후 테스트 작성
     @DisplayName("유저의 계좌 조회 테스트")
     @Test
     public void testGetBalance() throws Exception {

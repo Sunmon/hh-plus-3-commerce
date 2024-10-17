@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "유저 잔액 충전/조회 API")
 @RequiredArgsConstructor
 public class UserController {
+//    TODO issue와 동일하게 request, response 맞추기
 
     //    @PostMapping(value = "/join")
 //    @Operation(summary = "상품 정보 조회", response = Product.class)
@@ -28,9 +29,9 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "잘못된 파라미터", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "500", description = "잔액 조회 실패", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
-    @GetMapping(value = "/{id}/balance")
+    @GetMapping(value = "/{productId}/balance")
     public ResponseEntity<AccountResponse> getBalance(@PathVariable Long id) {
-        AccountResponse accountResponse = new AccountResponse(id, 10000L);
+        AccountResponse accountResponse = new AccountResponse(id, id, 10000L);
         return ResponseEntity.ok(accountResponse);
     }
 
@@ -40,7 +41,7 @@ public class UserController {
             @ApiResponse(responseCode = "400", description = "잘못된 파라미터", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "500", description = "잔액 충전 실패", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
     })
-    @PostMapping(value = "/{id}/balance")
+    @PostMapping(value = "/{productId}/balance")
     public ResponseEntity<ChargeResponse> charge(@PathVariable Long id, @RequestBody ChargeRequest chargeRequest) {
         ChargeResponse chargeResponse = new ChargeResponse(id, chargeRequest.amount(), 10000L);
         return ResponseEntity.ok(chargeResponse);
