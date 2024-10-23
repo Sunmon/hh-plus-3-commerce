@@ -36,7 +36,7 @@ public class OrderItem {
     public static OrderItem of(Order order, Product product, Long quantity, Long price, Long totalPrice) {
         return new OrderItem(null, order, product, quantity, price, totalPrice);
     }
-    
+
     public static OrderItem of(Product product, Long quantity) {
         return OrderItem.of(null, product, quantity);
     }
