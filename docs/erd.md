@@ -74,8 +74,8 @@ erDiagram
         LocalDateTime updatedAt
     }
 
-    Account ||--o{ Order 
-    Order ||--o{ OrderItem
-    Product ||--o{ OrderItem
-    Product ||--o{ Stock
+    Account ||--o{ Order : "has"
+    Order ||--o{ OrderItem : "contains"
+    Product ||--o{ OrderItem : "is part of"
+    Product ||--|| Stock : "has"
 ```
