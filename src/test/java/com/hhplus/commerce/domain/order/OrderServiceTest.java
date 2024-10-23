@@ -1,7 +1,9 @@
 package com.hhplus.commerce.domain.order;
 
+import com.hhplus.commerce.domain.account.AccountRepository;
 import com.hhplus.commerce.domain.order.entity.Order;
 import com.hhplus.commerce.domain.order.entity.OrderItem;
+import com.hhplus.commerce.domain.order.model.OrderStatus;
 import com.hhplus.commerce.domain.product.entity.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,11 +17,13 @@ public class OrderServiceTest {
     private OrderItemRepository orderItemRepository;
     private OrderService orderService;
 
+    private AccountRepository accountRepository;
+
     @BeforeEach
     void beforeEach() {
         orderRepository = new OrderRepositoryMemoryImpl();
         orderItemRepository = new OrderItemRepositoryMemoryImpl();
-        orderService = new OrderServiceImpl(orderRepository);
+        orderService = new OrderServiceImpl(orderRepository, accountRepository);
         Order order = new Order();
         Product product = new Product();
 //        orderRepository.insert(order);
@@ -33,7 +37,7 @@ public class OrderServiceTest {
     void testGetOrderInfo() {
         //given
         Long orderId = 1L;
-        Order order = Order.of(1L, null, OrderStatus.PENDING);
+        Order order = Order.of(1L, null, 100L);
         Product product = new Product();
         orderRepository.insert(order);
 //        OrderItem orderItem = new OrderItem(1L, 1L, 1L, "상품1", 10L, 100L, 10000L);

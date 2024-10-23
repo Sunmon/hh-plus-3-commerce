@@ -1,10 +1,10 @@
 package com.hhplus.commerce.domain.order;
 
 import com.hhplus.commerce.common.exception.ErrorResponse;
-import com.hhplus.commerce.domain.order.dto.OrderItems;
 import com.hhplus.commerce.domain.order.dto.OrderRequest;
 import com.hhplus.commerce.domain.order.dto.OrderResponse;
 import com.hhplus.commerce.domain.order.entity.Order;
+import com.hhplus.commerce.domain.order.model.OrderItems;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

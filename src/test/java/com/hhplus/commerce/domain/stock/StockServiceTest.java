@@ -36,9 +36,10 @@ class StockServiceTest {
     void testGetStockByProductId() {
         //given
         Long productId = 1L;
+        Product product = Product.of(productId, "상품1", 100L);
+        productRepository.insert(product);
         productRepository.insert(new Product());
-        productRepository.insert(new Product());
-        stockRepository.insert(Stock.of(1L, 1L, 100L));
+        stockRepository.insert(Stock.of(1L, product, 100L));
         // when
         Stock stock = stockService.getStockByProductId(productId);
         // then
@@ -54,10 +55,11 @@ class StockServiceTest {
         Long initQuantity = 100L;
         Long quantity = 10L;
         Long overQuantity = 10000L;
+        Product product = Product.of(productId, "상품1", 100L);
 
+        productRepository.insert(product);
         productRepository.insert(new Product());
-        productRepository.insert(new Product());
-        stockRepository.insert(Stock.of(1L, productId, initQuantity));
+        stockRepository.insert(Stock.of(1L, product, initQuantity));
         // when
         Stock stock = stockService.decreaseStockByProductId(productId, quantity);
         // then

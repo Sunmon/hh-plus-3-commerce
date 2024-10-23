@@ -1,10 +1,13 @@
 package com.hhplus.commerce.domain.order;
 
+import com.hhplus.commerce.domain.account.AccountRepository;
+import com.hhplus.commerce.domain.account.entity.Account;
 import com.hhplus.commerce.domain.order.dto.OrderItemRequest;
-import com.hhplus.commerce.domain.order.dto.OrderItems;
 import com.hhplus.commerce.domain.order.dto.OrderRequest;
 import com.hhplus.commerce.domain.order.entity.Order;
 import com.hhplus.commerce.domain.order.entity.OrderItem;
+import com.hhplus.commerce.domain.order.model.OrderItems;
+import com.hhplus.commerce.domain.order.model.OrderStatus;
 import com.hhplus.commerce.domain.stock.entity.Stock;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,12 +20,12 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final AccountRepository accountRepository;
 
     @Override
     @Transactional(readOnly = true)
     public Order getOrder(Long orderId) throws IllegalArgumentException {
         Order order = orderRepository.findByIdOrElseThrow(orderId);
-//        List<OrderItem> orderItems = orderItemRepository.findByOrderId(orderId);
         return order;
     }
 
@@ -36,15 +39,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order createOrder(Long accountId) {
-        return orderRepository.insert(Order.of(null, accountId, OrderStatus.PENDING, 0L));
+        Account account = accountRepository.findByIdOrElseThrow(accountId);
+        return orderRepository.insert(Order.of(null, account, 0L, OrderStatus.PENDING));
     }
 
-//    @Transactional
-//    private Map<Order, OrderItems> createOrder(Long accountId, OrderItems orderItems) {
-//        Order order = orderRepository.insert(Order.of(null, accountId, OrderStatus.PENDING, orderItems.getTotalPrice()));
-////        List<OrderItem> savedOrderItems = orderItemRepository.saveAll(orderItems.getOrderItems());
-//        return Map.of(order, new OrderItems(savedOrderItems));
-//    }
 
     @Transactional
     public Order updateOrderStatus(Order order, OrderStatus orderStatus) {

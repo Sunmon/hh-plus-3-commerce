@@ -1,6 +1,7 @@
 package com.hhplus.commerce.domain.order.entity;
 
-import com.hhplus.commerce.domain.order.OrderStatus;
+import com.hhplus.commerce.domain.account.entity.Account;
+import com.hhplus.commerce.domain.order.model.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,9 +21,11 @@ import java.time.LocalDateTime;
 public class Order {
     @Id
     private Long id;
-    private Long accountId;
-    private OrderStatus status;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
+    private Account account;
     private Long totalPrice;
+    private OrderStatus status;
 
     @CreatedDate
     @Column(updatable = false)
@@ -32,12 +35,16 @@ public class Order {
     private LocalDateTime updatedAt;
 
 
-    public static Order of(Long orderId, Long accountId, OrderStatus orderStatus) {
-        return new Order(orderId, accountId, orderStatus, 0L, LocalDateTime.now(), LocalDateTime.now());
+    public static Order of(Account account, Long totalPrice) {
+        return Order.of(null, account, totalPrice, OrderStatus.PENDING);
     }
 
-    public static Order of(Long orderId, Long accountId, OrderStatus orderStatus, Long totalPrice) {
-        return new Order(orderId, accountId, orderStatus, totalPrice, LocalDateTime.now(), LocalDateTime.now());
+    public static Order of(Long orderId, Account account, Long totalPrice) {
+        return Order.of(orderId, account, totalPrice, OrderStatus.PENDING);
+    }
+
+    public static Order of(Long orderId, Account account, Long totalPrice, OrderStatus orderStatus) {
+        return new Order(orderId, account, totalPrice, orderStatus, LocalDateTime.now(), LocalDateTime.now());
     }
 
 

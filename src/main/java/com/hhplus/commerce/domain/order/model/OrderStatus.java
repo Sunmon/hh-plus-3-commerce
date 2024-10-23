@@ -1,4 +1,4 @@
-package com.hhplus.commerce.domain.order;
+package com.hhplus.commerce.domain.order.model;
 
 public enum OrderStatus {
     PENDING, // 주문 대기

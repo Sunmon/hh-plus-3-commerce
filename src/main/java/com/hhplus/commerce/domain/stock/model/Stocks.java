@@ -1,6 +1,6 @@
-package com.hhplus.commerce.domain.stock;
+package com.hhplus.commerce.domain.stock.model;
 
-import com.hhplus.commerce.domain.order.dto.OrderItems;
+import com.hhplus.commerce.domain.order.model.OrderItems;
 import com.hhplus.commerce.domain.stock.entity.Stock;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

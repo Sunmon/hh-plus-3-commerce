@@ -1,7 +1,10 @@
 package com.hhplus.commerce.domain.order;
 
+import com.hhplus.commerce.domain.account.AccountRepository;
+import com.hhplus.commerce.domain.account.AccountRepositoryMemoryImpl;
 import com.hhplus.commerce.domain.order.entity.Order;
 import com.hhplus.commerce.domain.order.entity.OrderItem;
+import com.hhplus.commerce.domain.order.model.OrderStatus;
 import com.hhplus.commerce.domain.product.ProductRepository;
 import com.hhplus.commerce.domain.product.ProductRepositoryMemoryImpl;
 import com.hhplus.commerce.domain.product.ProductService;
@@ -28,6 +31,8 @@ public class OrderItemServiceTest {
     private StockHistoryRepository stockHistoryRepository;
     private StockRepository stockRepository;
     private StockService stocksService;
+
+    private AccountRepository accountRepository;
 //    private ProductRepository productRepository;
 
     @BeforeEach
@@ -36,10 +41,11 @@ public class OrderItemServiceTest {
         productRepository = new ProductRepositoryMemoryImpl();
         orderItemRepository = new OrderItemRepositoryMemoryImpl();
         stockHistoryRepository = new StockHistoryRepositoryMemoryImpl();
+        accountRepository = new AccountRepositoryMemoryImpl();
         stockRepository = new StockRepositoryMemoryImpl();
         stocksService = new StockServiceImpl(stockRepository, stockHistoryRepository);
 
-        orderService = new OrderServiceImpl(orderRepository);
+        orderService = new OrderServiceImpl(orderRepository, accountRepository);
 
         productService = new ProductServiceImpl(productRepository, stocksService);
         orderItemService = new OrderItemServiceImpl(orderItemRepository, orderService, productService);
@@ -60,7 +66,7 @@ public class OrderItemServiceTest {
         //given
         Long orderId = 1L;
 //        Order order = new Order();
-        Order order = Order.of(1L, null, OrderStatus.PENDING);
+        Order order = Order.of(1L, null, 100L, OrderStatus.PENDING);
         Product product = Product.of(2L, "상품2", 200L);
 
         // when

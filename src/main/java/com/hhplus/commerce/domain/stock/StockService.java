@@ -1,8 +1,9 @@
 package com.hhplus.commerce.domain.stock;
 
-import com.hhplus.commerce.domain.order.OrderStatus;
+import com.hhplus.commerce.domain.order.model.OrderStatus;
 import com.hhplus.commerce.domain.stock.entity.Stock;
 import com.hhplus.commerce.domain.stock.entity.StockHistory;
+import com.hhplus.commerce.domain.stock.model.Stocks;
 
 import java.time.LocalDateTime;
 import java.util.List;

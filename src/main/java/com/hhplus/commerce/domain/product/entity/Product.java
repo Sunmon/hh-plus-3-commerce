@@ -1,5 +1,6 @@
 package com.hhplus.commerce.domain.product.entity;
 
+import com.hhplus.commerce.domain.product.model.ProductStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,21 +23,22 @@ public class Product {
     private Long id;
     private String name;
     private Long price;
+    // fk로 묶여있어서 Product의 데이터를 함부로 삭제할 수 없음. 따라서 status 값 추가.
+    private ProductStatus status;
 
     @CreatedDate
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
-
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public static Product of(Long id, String name, Long price) {
-        return new Product(id, name, price, LocalDateTime.now(), LocalDateTime.now());
+    public static Product of(String name, Long price) {
+        return Product.of(null, name, price);
     }
 
-    public static Product of(Long id) {
-        return new Product(id, null, null, LocalDateTime.now(), LocalDateTime.now());
+    public static Product of(Long id, String name, Long price) {
+        return new Product(id, name, price, ProductStatus.SELLING, LocalDateTime.now(), LocalDateTime.now());
     }
 
     public Product assignId(Long id) {

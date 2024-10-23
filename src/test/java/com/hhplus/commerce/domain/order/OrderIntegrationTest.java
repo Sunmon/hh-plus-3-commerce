@@ -1,10 +1,12 @@
 package com.hhplus.commerce.domain.order;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hhplus.commerce.domain.account.entity.Account;
 import com.hhplus.commerce.domain.order.dto.OrderItemRequest;
 import com.hhplus.commerce.domain.order.dto.OrderRequest;
 import com.hhplus.commerce.domain.order.dto.OrderResponse;
 import com.hhplus.commerce.domain.order.entity.Order;
+import com.hhplus.commerce.domain.order.model.OrderStatus;
 import com.hhplus.commerce.domain.product.ProductRepository;
 import com.hhplus.commerce.domain.product.entity.Product;
 import com.hhplus.commerce.domain.stock.StockRepository;
@@ -54,9 +56,15 @@ public class OrderIntegrationTest {
         productRepository.insert(Product.of(1L, "상품1", 1000L));
         productRepository.insert(Product.of(2L, "상품2", 2000L));
         productRepository.insert(Product.of(3L, "상품3", 3000L));
-        stockRepository.insert(Stock.of(1L, 1L, 100L));
-        stockRepository.insert(Stock.of(2L, 2L, 200L));
-        stockRepository.insert(Stock.of(3L, 3L, 300L));
+
+        List<Product> products = List.of(
+                Product.of(1L, "상품1", 10L),
+                Product.of(2L, "상품2", 10L),
+                Product.of(3L, "상품3", 10L)
+        );
+        stockRepository.insert(Stock.of(1L, products.get(0), 100L));
+        stockRepository.insert(Stock.of(2L, products.get(1), 200L));
+        stockRepository.insert(Stock.of(3L, products.get(2), 300L));
     }
 
 
@@ -65,8 +73,9 @@ public class OrderIntegrationTest {
     public void testGetOrderInfo() throws Exception {
         // Given
         Long orderId = 1L;
+        Account account = Account.of(1L, 1L, 10000L);
 
-        orderRepository.insert(Order.of(orderId, 1L, OrderStatus.PENDING));
+        orderRepository.insert(Order.of(orderId, account, 100L, OrderStatus.PENDING));
 
         // When
 //        ProductREquest

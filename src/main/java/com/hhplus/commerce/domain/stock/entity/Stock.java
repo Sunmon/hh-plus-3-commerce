@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -16,7 +19,6 @@ public class Stock {
     @Id
     private Long id;
 
-    //    private Long productId
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
@@ -25,17 +27,17 @@ public class Stock {
     private Long stock;
     private Boolean inStock;
 
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
-    public static Stock of(Long id, Long productId, Long stock) {
-        return new Stock(id, Product.of(productId), stock, true);
+    public static Stock of(Product product, Long stock) {
+        return Stock.of(null, product, stock);
     }
-
 
     public static Stock of(Long id, Product product, Long stock) {
-        return new Stock(id, product, stock, true);
+        return new Stock(id, product, stock, true, LocalDateTime.now());
     }
-
-
+    
     public void assignId(Long id) {
         this.id = id;
     }

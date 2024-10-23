@@ -2,11 +2,12 @@ package com.hhplus.commerce.domain.order;
 
 import com.hhplus.commerce.domain.account.AccountService;
 import com.hhplus.commerce.domain.order.dto.OrderItemRequest;
-import com.hhplus.commerce.domain.order.dto.OrderItems;
 import com.hhplus.commerce.domain.order.entity.Order;
 import com.hhplus.commerce.domain.order.entity.OrderItem;
+import com.hhplus.commerce.domain.order.model.OrderItems;
+import com.hhplus.commerce.domain.order.model.OrderStatus;
 import com.hhplus.commerce.domain.stock.StockService;
-import com.hhplus.commerce.domain.stock.Stocks;
+import com.hhplus.commerce.domain.stock.model.Stocks;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

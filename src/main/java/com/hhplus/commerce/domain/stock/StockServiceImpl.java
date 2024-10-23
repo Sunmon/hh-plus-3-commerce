@@ -1,8 +1,9 @@
 package com.hhplus.commerce.domain.stock;
 
-import com.hhplus.commerce.domain.order.OrderStatus;
+import com.hhplus.commerce.domain.order.model.OrderStatus;
 import com.hhplus.commerce.domain.stock.entity.Stock;
 import com.hhplus.commerce.domain.stock.entity.StockHistory;
+import com.hhplus.commerce.domain.stock.model.Stocks;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,7 @@ class StockServiceImpl implements StockService {
 
     @Override
     public StockHistory insertHistory(Long productId, Long orderId, Long quantity, Long price, OrderStatus orderStatus) {
-        StockHistory stockHistory = StockHistory.of(null, orderId, productId, quantity, price, orderStatus);
+        StockHistory stockHistory = StockHistory.of(null, orderId, productId, quantity, price, null, null, orderStatus);
         return stockHistoryRepository.insert(stockHistory);
     }
 

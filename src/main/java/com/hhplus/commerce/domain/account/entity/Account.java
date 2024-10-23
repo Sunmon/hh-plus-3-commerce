@@ -15,17 +15,16 @@ import lombok.Setter;
 public class Account {
     @Id
     private Long id;
-    private Long balance;
+    // users 테이블은 본 서비스에서 사실상 사용하지 않기 때문에 빠른 개발을 위해 연관관계를 맺지 않음.
     private Long userId;
-
-    public Account(Long id) {
-        this.id = id;
-        this.balance = 0L;
-        this.userId = null;
+    private Long balance;
+    
+    public static Account of(Long userId, Long balance) {
+        return Account.of(null, userId, balance);
     }
 
-    public static Account of(Long id, long balance, Long userId) {
-        return new Account(id, balance, userId);
+    public static Account of(Long id, Long userId, Long balance) {
+        return new Account(id, userId, balance);
     }
 
     public void assignId(Long id) {

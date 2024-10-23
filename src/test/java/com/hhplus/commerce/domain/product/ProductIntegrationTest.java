@@ -2,6 +2,7 @@ package com.hhplus.commerce.domain.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hhplus.commerce.domain.product.dto.ProductStockResponse;
+import com.hhplus.commerce.domain.product.entity.Product;
 import com.hhplus.commerce.domain.stock.StockRepository;
 import com.hhplus.commerce.domain.stock.entity.Stock;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +39,8 @@ public class ProductIntegrationTest {
     @BeforeEach
     void beforeEach() {
 //        productRepository.insert(new Product());
-        stockRepository.insert(Stock.of(1L, 1L, 100L));
+        Product product = Product.of(1L, "상품1", 100L);
+        stockRepository.insert(Stock.of(1L, product, 100L));
     }
 
 

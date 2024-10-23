@@ -1,4 +1,4 @@
-package com.hhplus.commerce.domain.order.dto;
+package com.hhplus.commerce.domain.order.model;
 
 import com.hhplus.commerce.domain.order.entity.OrderItem;
 import lombok.Getter;
@@ -11,10 +11,8 @@ import java.util.List;
 public class OrderItems {
     private final List<OrderItem> orderItems;
 
-    static public OrderItems of(List<OrderItemRequest> orderItemRequests) {
-        return new OrderItems(orderItemRequests.stream()
-                .map(request -> OrderItem.of(request.productId(), request.quantity()))
-                .toList());
+    static public OrderItems of(List<OrderItem> orderItems) {
+        return new OrderItems(orderItems);
     }
 
     public Long getTotalPrice() {

@@ -6,8 +6,9 @@ import com.hhplus.commerce.domain.account.AccountService;
 import com.hhplus.commerce.domain.account.AccountServiceImpl;
 import com.hhplus.commerce.domain.account.entity.Account;
 import com.hhplus.commerce.domain.order.dto.OrderItemRequest;
-import com.hhplus.commerce.domain.order.dto.OrderItems;
 import com.hhplus.commerce.domain.order.entity.Order;
+import com.hhplus.commerce.domain.order.model.OrderItems;
+import com.hhplus.commerce.domain.order.model.OrderStatus;
 import com.hhplus.commerce.domain.product.ProductRepository;
 import com.hhplus.commerce.domain.product.ProductRepositoryMemoryImpl;
 import com.hhplus.commerce.domain.product.entity.Product;
@@ -36,6 +37,7 @@ class OrderProcessServiceTest {
     StockService stockService;
     AccountService accountService;
     OrderItemRepository orderItemRepository;
+
     private StockHistoryRepository stockHistoryRepository;
 
     @BeforeEach
@@ -46,8 +48,9 @@ class OrderProcessServiceTest {
         orderRepository = new OrderRepositoryMemoryImpl();
         orderItemRepository = new OrderItemRepositoryMemoryImpl();
         stockHistoryRepository = new StockHistoryRepositoryMemoryImpl();
+        accountRepository = new AccountRepositoryMemoryImpl();
 
-        orderService = new OrderServiceImpl(orderRepository);
+        orderService = new OrderServiceImpl(orderRepository, accountRepository);
 //        orderItemService = new OrderItemServiceImpl(orderItemRepository);
         stockService = new StockServiceImpl(stockRepository, stockHistoryRepository);
         accountService = new AccountServiceImpl(accountRepository);
@@ -66,7 +69,7 @@ class OrderProcessServiceTest {
         Long stock = 100L;
         Product product1 = Product.of(productId, "상품1", 100L);
         Product product2 = Product.of(productId + 1, "상품2", 200L);
-        accountRepository.insert(new Account(accountId, 10000L, 1L));
+        accountRepository.insert(new Account(accountId, 1L, 10000L));
         productRepository.insert(product1);
         productRepository.insert(product2);
         stockRepository.insert(Stock.of(null, product1, stock));

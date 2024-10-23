@@ -1,9 +1,9 @@
 package com.hhplus.commerce.domain.order;
 
 import com.hhplus.commerce.domain.order.dto.OrderItemRequest;
-import com.hhplus.commerce.domain.order.dto.OrderItems;
 import com.hhplus.commerce.domain.order.entity.Order;
 import com.hhplus.commerce.domain.order.entity.OrderItem;
+import com.hhplus.commerce.domain.order.model.OrderItems;
 import com.hhplus.commerce.domain.product.ProductService;
 import com.hhplus.commerce.domain.product.entity.Product;
 import lombok.RequiredArgsConstructor;
