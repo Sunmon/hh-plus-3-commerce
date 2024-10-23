@@ -19,7 +19,9 @@ public class Stock {
     @Id
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    //    @ManyToOne(fetch = FetchType.LAZY)
+    // 굳이 manyToOne으로 개발 범위를 넓힐 필요 없을 것 같아 oneTOOne으로 변경
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
 
@@ -37,7 +39,7 @@ public class Stock {
     public static Stock of(Long id, Product product, Long stock) {
         return new Stock(id, product, stock, true, LocalDateTime.now());
     }
-    
+
     public void assignId(Long id) {
         this.id = id;
     }
