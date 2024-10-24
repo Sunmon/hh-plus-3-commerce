@@ -1,4 +1,4 @@
-package com.hhplus.commerce.common.exception;
+package com.hhplus.commerce.domain.common.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.hhplus.commerce.common.exception;
+package com.hhplus.commerce.domain.common.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;

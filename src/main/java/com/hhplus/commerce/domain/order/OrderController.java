@@ -1,6 +1,6 @@
 package com.hhplus.commerce.domain.order;
 
-import com.hhplus.commerce.common.exception.ErrorResponse;
+import com.hhplus.commerce.domain.common.exception.ErrorResponse;
 import com.hhplus.commerce.domain.order.dto.OrderRequest;
 import com.hhplus.commerce.domain.order.dto.OrderResponse;
 import com.hhplus.commerce.domain.order.entity.Order;

@@ -1,6 +1,6 @@
 package com.hhplus.commerce.domain.product;
 
-import com.hhplus.commerce.common.exception.ErrorResponse;
+import com.hhplus.commerce.domain.common.exception.ErrorResponse;
 import com.hhplus.commerce.domain.product.dto.ProductOrderRequest;
 import com.hhplus.commerce.domain.product.dto.ProductOrderResponse;
 import com.hhplus.commerce.domain.product.dto.ProductStockResponse;
