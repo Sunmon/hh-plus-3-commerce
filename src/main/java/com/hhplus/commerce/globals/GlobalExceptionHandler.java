@@ -1,6 +1,6 @@
 package com.hhplus.commerce.globals;
 
-import com.hhplus.commerce.common.exception.*;
+import com.hhplus.commerce.domain.common.exception.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 package com.hhplus.commerce.domain.cart.model;
 
-import com.hhplus.commerce.common.exception.ErrorCode;
+import com.hhplus.commerce.domain.common.exception.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
