@@ -7,8 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class CommerceException extends RuntimeException {
+public class CustomException extends RuntimeException {
     private final ErrorCode errorCode;
     private ErrorInfo errorInfo;
-
 }

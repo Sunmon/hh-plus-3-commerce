@@ -15,7 +15,7 @@ public enum CommonErrorCode implements ErrorCode {
 
 
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "Invalid input value"),
-
+    UNDEFINED_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Undefined error"),
     ;
 
     private final HttpStatus httpStatus;
