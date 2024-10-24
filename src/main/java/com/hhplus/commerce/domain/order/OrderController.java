@@ -1,6 +1,6 @@
 package com.hhplus.commerce.domain.order;
 
-import com.hhplus.commerce.common.exception.ErrorResponse;
+import com.hhplus.commerce.domain.common.exception.ErrorResponse;
 import com.hhplus.commerce.domain.order.dto.OrderRequest;
 import com.hhplus.commerce.domain.order.dto.OrderResponse;
 import com.hhplus.commerce.domain.order.entity.Order;
@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +51,7 @@ public class OrderController {
             @ApiResponse(responseCode = "500", description = "주문 실패", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping(value = "/")
-    public ResponseEntity<OrderResponse> postOrder(@RequestBody OrderRequest orderRequest) {
+    public ResponseEntity<OrderResponse> postOrder(@RequestBody @Valid OrderRequest orderRequest) {
 //        OrderResponse orderResponse = new OrderResponse(productId, 1L, null, null, null, 0L, null);
         // REVIEW - orderService에 orderItemRequest (DTO)를 넘거주는 것이 찝찝합니다.
         // orderItem이라는 Entity를 넣으려고 하니 Product를 매핑해놓아 매번 새 Product 객체를 만들어서 넣는 것도 찝찝합니다.
