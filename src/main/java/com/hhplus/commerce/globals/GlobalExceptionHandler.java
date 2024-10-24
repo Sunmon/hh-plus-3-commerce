@@ -1,11 +1,15 @@
 package com.hhplus.commerce.globals;
 
 import com.hhplus.commerce.common.exception.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
@@ -24,32 +28,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return handleError(errorCode);
     }
 
-//    FIXME Ambiguous @ExceptionHandler method mapped
-//    @ExceptionHandler(value = MethodArgumentNotValidException.class)
-//    @Override
-//    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e, HttpHeaders headers, HttpStatus status, WebRequest request) {
-//        return handleError(CommonErrorCode.METHOD_ARGUMENT_NOT_VALID, e);
-//    }
-
-//    FIXME Ambiguous @ExceptionHandler method mapped
-//    @ExceptionHandler(value = NoHandlerFoundException.class)
-//    public ResponseEntity<ErrorResponse> handleNoHandlerFoundException(NoHandlerFoundException e) {
-//        ErrorCode errorCode = CommonErrorCode.RESOURCE_NOT_FOUND;
-//        return handleError(errorCode);
-//    }
-
-//    FIXME Ambiguous @ExceptionHandler method mapped
-//    @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
-//    public ResponseEntity<ErrorResponse> handleMethodNotAllowed(HttpRequestMethodNotSupportedException e) {
-//        ErrorCode errorCode = CommonErrorCode.METHOD_NOT_ALLOWED;
-//        ErrorInfo errorInfo = ErrorInfo.builder()
-//                .addDetail("method", e.getMethod())
-//                .addDetail("supportedMethods", e.getSupportedHttpMethods())
-//                .build();
-//
-//        return handleError(errorCode, errorInfo);
-//    }
-
+    // NOTE @ExceptionHandler 어노테이션 안을 지워도 ambigous 오류가 발생하여 그냥 오버라이딩해버림
+    @Override
+    public ResponseEntity<Object> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        return handleError(CommonErrorCode.METHOD_ARGUMENT_NOT_VALID, ex);
+    }
 
     // 서비스 로직에서 발생하는 예외를 처리하는 핸들러
     @ExceptionHandler(value = CustomException.class)
