@@ -2,6 +2,8 @@ package com.hhplus.commerce.globals;
 
 import com.hhplus.commerce.common.exception.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -21,6 +23,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = CommonErrorCode.INVALID_PARAMETER;
         return handleError(errorCode);
     }
+
+//    FIXME Ambiguous @ExceptionHandler method mapped
+//    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+//    @Override
+//    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e, HttpHeaders headers, HttpStatus status, WebRequest request) {
+//        return handleError(CommonErrorCode.METHOD_ARGUMENT_NOT_VALID, e);
+//    }
+
 //    FIXME Ambiguous @ExceptionHandler method mapped
 //    @ExceptionHandler(value = NoHandlerFoundException.class)
 //    public ResponseEntity<ErrorResponse> handleNoHandlerFoundException(NoHandlerFoundException e) {
@@ -45,6 +55,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = CustomException.class)
     public ResponseEntity<ErrorResponse> handleCustomException(CustomException e) {
         return handleError(e.getErrorCode(), e.getErrorInfo());
+    }
+
+    private ResponseEntity<Object> handleError(ErrorCode errorCode, BindException bindException) {
+        ErrorInfo.ErrorInfoBuilder builder = ErrorInfo.builder();
+        bindException.getBindingResult().getAllErrors().forEach(error -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            builder.addDetail(fieldName, errorMessage);
+        });
+
+        ErrorResponse errorResponse = makeErrorResponse(errorCode, builder.build());
+        return ResponseEntity.status(errorCode.getHttpStatus()).body(errorResponse);
     }
 
     private ResponseEntity<ErrorResponse> handleError(ErrorCode errorCode, ErrorInfo errorInfo) {

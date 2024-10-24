@@ -13,6 +13,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +40,7 @@ public class ProductController {
             @ApiResponse(responseCode = "500", description = "상품 정보 조회 실패", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping(value = "/{productId}")
-    public ResponseEntity<ProductStockResponse> getProductWithStock(@PathVariable Long productId) {
+    public ResponseEntity<ProductStockResponse> getProductWithStock(@PathVariable @Positive Long productId) {
         Stock stock = stockService.getStockByProductId(productId);
         return ResponseEntity.ok(new ProductStockResponse(stock));
     }
@@ -53,7 +55,7 @@ public class ProductController {
             @ApiResponse(responseCode = "500", description = "주문 실패", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping(value = "/{productId}/orders")
-    public ResponseEntity<ProductOrderResponse> order(@PathVariable Long id, @RequestBody ProductOrderRequest productOrderRequest) {
+    public ResponseEntity<ProductOrderResponse> order(@PathVariable Long id, @RequestBody @Valid ProductOrderRequest productOrderRequest) {
         ProductOrderResponse productOrderResponse = new ProductOrderResponse(id, productOrderRequest.userId(), productOrderRequest.quantity());
         return ResponseEntity.ok(productOrderResponse);
     }

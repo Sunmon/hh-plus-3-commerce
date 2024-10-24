@@ -11,6 +11,7 @@ public enum CommonErrorCode implements ErrorCode {
     RESOURCE_NOT_FOUND(HttpStatus.NOT_FOUND, "resource not found"),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"),
     METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, "Method not allowed"),
+    METHOD_ARGUMENT_NOT_VALID(HttpStatus.BAD_REQUEST, "Method argument not valid"),
     CONFLICT(HttpStatus.CONFLICT, "conflict request"),
 
 
