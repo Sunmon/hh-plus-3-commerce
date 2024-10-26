@@ -1,7 +1,7 @@
 package com.hhplus.commerce.domain.cart;
 
-import com.hhplus.commerce.common.exception.ErrorResponse;
 import com.hhplus.commerce.domain.cart.entity.Cart;
+import com.hhplus.commerce.domain.common.exception.ErrorResponse;
 import com.hhplus.commerce.domain.order.dto.OrderResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

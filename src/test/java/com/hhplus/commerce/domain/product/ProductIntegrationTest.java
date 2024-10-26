@@ -44,6 +44,22 @@ public class ProductIntegrationTest {
     }
 
 
+    @Test
+    public void API_잘못된_파라미터_테스트() throws Exception {
+        // Given
+        Long productId = 0L;
+
+        // When
+        MockHttpServletResponse response = mockMvc.perform(get(BASE_URL + "/" + productId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+
+        // Then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+
+    }
+
+
     @DisplayName("상품 정보 조회 테스트")
     @Test
     public void testGetProductInfo() throws Exception {

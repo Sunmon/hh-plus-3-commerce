@@ -68,6 +68,21 @@ public class OrderIntegrationTest {
     }
 
 
+    @Test
+    public void API_잘못된_파라미터_테스트() throws Exception {
+        // Given
+        OrderRequest request = OrderRequest.of(null, null);
+
+        // When
+        MockHttpServletResponse response = mockMvc.perform(post(BASE_URL + "/")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andReturn().getResponse();
+
+        // Then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
+    }
+
     @DisplayName("주문 정보 조회 테스트")
     @Test
     public void testGetOrderInfo() throws Exception {

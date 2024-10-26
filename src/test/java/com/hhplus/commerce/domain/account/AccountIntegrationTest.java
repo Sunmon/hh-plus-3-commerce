@@ -2,6 +2,7 @@ package com.hhplus.commerce.domain.account;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hhplus.commerce.domain.account.dto.AccountDepositRequest;
+import com.hhplus.commerce.domain.account.dto.AccountRequest;
 import com.hhplus.commerce.domain.account.dto.AccountResponse;
 import com.hhplus.commerce.domain.account.entity.Account;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +35,23 @@ public class AccountIntegrationTest {
     @BeforeEach
     public void setUp() {
         accountRepository.insert(new Account());
+    }
+
+
+    @Test
+    public void 계좌_API_유효하지_않은_입력_테스트() throws Exception {
+        // Given
+        AccountDepositRequest request = new AccountDepositRequest(null, null);
+        AccountRequest accountRequest = AccountRequest.of(null);
+
+        // When
+        MockHttpServletResponse response = mockMvc.perform(post("/api/v1/accounts/deposit")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andReturn().getResponse();
+
+        // Then
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
 
