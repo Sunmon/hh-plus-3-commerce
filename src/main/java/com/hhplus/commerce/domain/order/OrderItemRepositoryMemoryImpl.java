@@ -1,40 +1,37 @@
 package com.hhplus.commerce.domain.order;
 
 import com.hhplus.commerce.domain.order.entity.OrderItem;
-import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Repository
-public class OrderItemRepositoryMemoryImpl implements OrderItemRepository {
+public class OrderItemRepositoryMemoryImpl {
     Map<Long, OrderItem> db = new HashMap<>();
     AtomicLong atomicId = new AtomicLong(1L);
 
-    @Override
+
     public Optional<OrderItem> findById(Long orderItemId) {
         return Optional.ofNullable(db.get(orderItemId));
     }
 
-    @Override
-    public OrderItem findByProductId(Long productId) throws IllegalArgumentException {
-        return db.get(productId);
+
+    public List<OrderItem> findByProduct_Id(Long productId) throws IllegalArgumentException {
+        return (List<OrderItem>) db.get(productId);
     }
 
 
-    @Override
     public List<OrderItem> findAllByOrderId(Long orderId) {
         return db.values().stream().filter(orderItem -> orderItem.getOrder().getId().equals(orderId)).toList();
     }
 
-    @Override
-    public OrderItem insert(OrderItem orderItem) {
+
+    public OrderItem save(OrderItem orderItem) {
         orderItem.assignId(nextId());
         db.put(orderItem.getId(), orderItem);
         return orderItem;
     }
 
-    @Override
+
     public List<OrderItem> saveAll(List<OrderItem> orderItems) {
         List<Long> ids = new ArrayList<>();
         orderItems.forEach(orderItem -> {

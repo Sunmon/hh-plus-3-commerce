@@ -10,7 +10,7 @@ public interface ProductRepository {
 
     Product findByIdOrElseThrow(Long productId) throws IllegalArgumentException;
 
-    Product insert(Product product);
+    Product save(Product product);
 
     List<Product> saveAll(List<Product> products);
 }

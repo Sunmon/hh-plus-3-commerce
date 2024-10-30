@@ -9,13 +9,12 @@ public interface OrderItemRepository {
 
     Optional<OrderItem> findById(Long orderItemId);
 
-    OrderItem findByProductId(Long productId) throws IllegalArgumentException;
+    List<OrderItem> findByProductId(Long productId) throws IllegalArgumentException;
 
-    public OrderItem insert(OrderItem orderItem);
+    public OrderItem save(OrderItem orderItem);
 
     List<OrderItem> saveAll(List<OrderItem> orderItems);
 
-//    List<OrderItem> findByOrderId(Long orderId);
 
     List<OrderItem> findAllByOrderId(Long orderId);
 }

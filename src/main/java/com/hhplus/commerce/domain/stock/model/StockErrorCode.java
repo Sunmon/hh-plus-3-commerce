@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 public enum StockErrorCode implements ErrorCode {
     STOCK_NOT_FOUND(HttpStatus.NOT_FOUND, "Stock not found"),
     NOT_ENOUGH_STOCK(HttpStatus.CONFLICT, "Not enough stock"),
+    STOCK_HISTORY_NOT_FOUND(HttpStatus.NOT_FOUND, "Stock history not found"),
     ;
     private final HttpStatus httpStatus;
     private final String message;

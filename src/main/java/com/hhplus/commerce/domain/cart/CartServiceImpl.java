@@ -25,11 +25,11 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart getCart(Long cartId) {
-        return cartRepository.selectById(cartId);
+        return cartRepository.findById(cartId).get();
     }
 
     @Override
     public List<Cart> getCartsByUserId(Long userId) {
-        return cartRepository.selectAllByUserId(userId);
+        return cartRepository.findAllByUserId(userId);
     }
 }

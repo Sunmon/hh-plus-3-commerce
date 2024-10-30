@@ -1,14 +1,11 @@
 package com.hhplus.commerce.domain.cart;
 
 import com.hhplus.commerce.domain.cart.entity.Cart;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface CartRepository {
-    Cart insert(Cart cart);
-
-    Optional<Cart> findById(Long id);
+public interface CartJpaRepository extends JpaRepository<Cart, Long> {
 
     List<Cart> findAllByUserId(Long userId);
 

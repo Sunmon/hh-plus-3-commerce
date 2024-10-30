@@ -1,14 +1,12 @@
 package com.hhplus.commerce.domain.account;
 
 import com.hhplus.commerce.domain.account.entity.Account;
-import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Repository
 public
 class AccountRepositoryMemoryImpl implements AccountRepository {
     private final AtomicLong atomicId = new AtomicLong(1L);

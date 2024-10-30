@@ -20,12 +20,12 @@ class StockServiceImpl implements StockService {
 
     @Override
     public Stock getStockByProductId(Long productId) {
-        return stockRepository.findByProductIdOrElseThrow(productId);
+        return stockRepository.findByIdOrElseThrow(productId);
     }
 
     @Override
     public Stock decreaseStockByProductId(Long productId, Long quantity) {
-        Stock stock = stockRepository.findByProductIdOrElseThrow(productId);
+        Stock stock = stockRepository.findByIdOrElseThrow(productId);
         stock.decrease(quantity);
         return stock;
     }
@@ -38,7 +38,7 @@ class StockServiceImpl implements StockService {
     @Override
     public StockHistory insertHistory(Long productId, Long orderId, Long quantity, Long price, OrderStatus orderStatus) {
         StockHistory stockHistory = StockHistory.of(null, orderId, productId, quantity, price, null, null, orderStatus);
-        return stockHistoryRepository.insert(stockHistory);
+        return stockHistoryRepository.save(stockHistory);
     }
 
     @Override
