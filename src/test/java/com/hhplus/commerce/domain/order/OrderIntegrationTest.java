@@ -53,9 +53,9 @@ public class OrderIntegrationTest {
     public void setUp() {
 //        orderRepository.deleteAll();
 //        orderItemRepository.deleteAll();
-        productRepository.insert(Product.of(1L, "상품1", 1000L));
-        productRepository.insert(Product.of(2L, "상품2", 2000L));
-        productRepository.insert(Product.of(3L, "상품3", 3000L));
+        productRepository.save(Product.of(1L, "상품1", 1000L));
+        productRepository.save(Product.of(2L, "상품2", 2000L));
+        productRepository.save(Product.of(3L, "상품3", 3000L));
 
         List<Product> products = List.of(
                 Product.of(1L, "상품1", 10L),
@@ -90,7 +90,7 @@ public class OrderIntegrationTest {
         Long orderId = 1L;
         Account account = Account.of(1L, 1L, 10000L);
 
-        orderRepository.insert(Order.of(orderId, account, 100L, OrderStatus.PENDING));
+        orderRepository.save(Order.of(orderId, account, 100L, OrderStatus.PENDING));
 
         // When
 //        ProductREquest

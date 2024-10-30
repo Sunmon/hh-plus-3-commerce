@@ -2,30 +2,34 @@ package com.hhplus.commerce.domain.product;
 
 import com.hhplus.commerce.domain.product.entity.Product;
 import com.hhplus.commerce.domain.stock.StockHistoryRepository;
-import com.hhplus.commerce.domain.stock.StockHistoryRepositoryMemoryImpl;
-import com.hhplus.commerce.domain.stock.StockRepositoryMemoryImpl;
+import com.hhplus.commerce.domain.stock.StockRepository;
 import com.hhplus.commerce.domain.stock.StockServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@DataJpaTest
 public class ProductServiceTest {
-
+    @Autowired
     private ProductRepository productRepository;
     private ProductService productService;
-    private StockRepositoryMemoryImpl stockRepository;
+    @Autowired
+    private StockRepository stockRepository;
     private StockServiceImpl stockService;
+    @Autowired
     private StockHistoryRepository stockHistoryRepository;
 
     @BeforeEach
     void beforeEach() {
-        stockRepository = new StockRepositoryMemoryImpl();
-        stockHistoryRepository = new StockHistoryRepositoryMemoryImpl();
+//        stockRepository = new StockRepositoryMemoryImpl();
+//        stockHistoryRepository = new StockHistoryRepositoryMemoryImpl();
         stockService = new StockServiceImpl(stockRepository, stockHistoryRepository);
-        productRepository = new ProductRepositoryMemoryImpl();
+//        productRepository = new ProductRepositoryMemoryImpl();
         productService = new ProductServiceImpl(productRepository, stockService);
     }
 
@@ -34,7 +38,7 @@ public class ProductServiceTest {
     void testGetProductInfo() {
         //given
         Long productId = 1L;
-        productRepository.insert(new Product());
+        productRepository.save(new Product());
         // when
         Product product = productService.getProductWithStock(productId);
         // then
