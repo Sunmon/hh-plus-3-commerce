@@ -2,9 +2,7 @@ package com.hhplus.commerce.domain.stock.entity;
 
 import com.hhplus.commerce.domain.order.model.OrderStatus;
 import com.hhplus.commerce.domain.stock.model.StockStatus;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +27,7 @@ import java.time.LocalDateTime;
 //@RequiredArgsConstructor
 public class StockHistory {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     // 빠른 개발을 위해 연관관계를 맺지 않음.
     private Long stockId;

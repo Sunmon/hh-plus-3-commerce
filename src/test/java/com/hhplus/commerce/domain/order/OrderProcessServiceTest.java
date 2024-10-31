@@ -81,8 +81,8 @@ class OrderProcessServiceTest {
         accountRepository.insert(new Account(accountId, 1L, 10000L));
         productRepository.save(product1);
         productRepository.save(product2);
-        stockRepository.insert(Stock.of(null, product1, stock));
-        stockRepository.insert(Stock.of(null, product2, stock));
+        stockRepository.save(Stock.of(null, product1, stock));
+        stockRepository.save(Stock.of(null, product2, stock));
 
         List<OrderItemRequest> orderItemRequestList = List.of(
                 new OrderItemRequest(productId, 10L),
@@ -100,7 +100,7 @@ class OrderProcessServiceTest {
         assertThat(orderItems.getOrderItems().size()).isEqualTo(1);
         assertThat(orderItems.getOrderItems().get(0).getQuantity()).isEqualTo(10L);
 
-        assertThat(order.getStatus()).isEqualTo(OrderStatus.SUCCESS);
+        assertThat(order.getStatus()).isEqualTo(OrderStatus.PRODUCT_SUCCESS);
 
         assertThat(accountRepository.findByIdOrElseThrow(accountId).getBalance()).isEqualTo(8000L);
 

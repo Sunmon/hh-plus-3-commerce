@@ -13,8 +13,8 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class StockHistoryRepositoryImpl implements StockHistoryRepository {
-    StockHistoryJpaRepository stockHistoryJpaRepository;
-    StockRepositoryMemoryImpl stockRepositoryMemoryImpl;
+    final StockHistoryJpaRepository stockHistoryJpaRepository;
+    final StockRepositoryMemoryImpl stockRepositoryMemoryImpl;
 
     @Override
     public StockHistory save(StockHistory stockHistory) {

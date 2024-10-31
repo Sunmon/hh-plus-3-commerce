@@ -1,10 +1,12 @@
 package com.hhplus.commerce.domain.product;
 
 import com.hhplus.commerce.domain.product.entity.Product;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Repository
 public class ProductRepositoryMemoryImpl {
     Map<Long, Product> db = new HashMap<>();
     AtomicLong atomicId = new AtomicLong(1L);

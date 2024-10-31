@@ -1,14 +1,15 @@
 package com.hhplus.commerce.domain.stock;
 
 import com.hhplus.commerce.domain.stock.entity.Stock;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-public
-class StockRepositoryMemoryImpl {
+@Repository
+public class StockRepositoryMemoryImpl {
     Map<Long, Stock> db = new HashMap<>();
     AtomicLong atomicId = new AtomicLong(1L);
 

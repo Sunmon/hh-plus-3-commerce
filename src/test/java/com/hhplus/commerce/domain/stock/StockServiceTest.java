@@ -42,7 +42,7 @@ class StockServiceTest {
         Product product = Product.of(productId, "상품1", 100L);
         productRepository.save(product);
         productRepository.save(new Product());
-        stockRepository.insert(Stock.of(1L, product, 100L));
+        stockRepository.save(Stock.of(1L, product, 100L));
         // when
         Stock stock = stockService.getStockByProductId(productId);
         // then
@@ -62,7 +62,7 @@ class StockServiceTest {
 
         productRepository.save(product);
         productRepository.save(new Product());
-        stockRepository.insert(Stock.of(1L, product, initQuantity));
+        stockRepository.save(Stock.of(1L, product, initQuantity));
         // when
         Stock stock = stockService.decreaseStockByProductId(productId, quantity);
         // then

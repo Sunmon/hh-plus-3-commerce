@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "stocks")
 public class Stock {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //    @ManyToOne(fetch = FetchType.LAZY)

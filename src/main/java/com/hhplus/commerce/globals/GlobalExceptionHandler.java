@@ -20,7 +20,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler(value = Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception e) {
+    public ResponseEntity<ErrorResponse> handleException(Exception ex, HttpServletRequest request) {
+        log.error("## Exception occured at URL: {} | Method: {} | message: {}", request.getRequestURI(), request.getMethod(), ex.getMessage(), ex);
+        
         return handleError(CommonErrorCode.UNDEFINED_ERROR);
     }
 

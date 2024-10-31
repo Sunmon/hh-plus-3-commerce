@@ -13,11 +13,11 @@ import java.util.Optional;
 @Repository
 public class StockRepositoryImpl implements StockRepository {
 
-    StockRepositoryMemoryImpl stockRepositoryMemory;
-    StockJpaRepository stockJpaRepository;
+    final StockRepositoryMemoryImpl stockRepositoryMemory;
+    final StockJpaRepository stockJpaRepository;
 
     @Override
-    public Stock insert(Stock stock) {
+    public Stock save(Stock stock) {
         return stockJpaRepository.save(stock);
     }
 

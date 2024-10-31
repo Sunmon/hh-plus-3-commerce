@@ -13,8 +13,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductRepositoryImpl implements ProductRepository {
 
-    ProductJpaRepository productJpaRepository;
-    ProductRepositoryMemoryImpl productRepositoryMemoryImpl;
+    private final ProductJpaRepository productJpaRepository;
+    private final ProductRepositoryMemoryImpl productRepositoryMemoryImpl;
 
     @Override
     public Optional<Product> findById(Long productId) {

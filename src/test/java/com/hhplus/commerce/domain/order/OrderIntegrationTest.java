@@ -62,9 +62,9 @@ public class OrderIntegrationTest {
                 Product.of(2L, "상품2", 10L),
                 Product.of(3L, "상품3", 10L)
         );
-        stockRepository.insert(Stock.of(1L, products.get(0), 100L));
-        stockRepository.insert(Stock.of(2L, products.get(1), 200L));
-        stockRepository.insert(Stock.of(3L, products.get(2), 300L));
+        stockRepository.save(Stock.of(1L, products.get(0), 100L));
+        stockRepository.save(Stock.of(2L, products.get(1), 200L));
+        stockRepository.save(Stock.of(3L, products.get(2), 300L));
     }
 
 
@@ -151,6 +151,6 @@ public class OrderIntegrationTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         OrderResponse orderResponse = objectMapper.readValue(response.getContentAsString(), OrderResponse.class);
         assertThat(orderResponse.orderId()).isGreaterThan(0L);
-        assertThat(orderResponse.status()).isEqualTo(OrderStatus.SUCCESS);
+        assertThat(orderResponse.status()).isEqualTo(OrderStatus.PRODUCT_SUCCESS);
     }
 }
