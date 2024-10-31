@@ -1,7 +1,6 @@
 package com.hhplus.commerce.domain.order;
 
 import com.hhplus.commerce.domain.order.entity.Order;
-import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +8,6 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 
-@Repository
 public class OrderRepositoryMemoryImpl implements OrderRepository {
     Map<Long, Order> db = new HashMap<>();
     AtomicLong atomicId = new AtomicLong(1L);
@@ -28,7 +26,7 @@ public class OrderRepositoryMemoryImpl implements OrderRepository {
     }
 
     @Override
-    public Order insert(Order order) {
+    public Order save(Order order) {
         order.assignId(nextId());
         db.put(order.getId(), order);
         return order;

@@ -10,24 +10,32 @@ import com.hhplus.commerce.domain.order.entity.Order;
 import com.hhplus.commerce.domain.order.model.OrderItems;
 import com.hhplus.commerce.domain.order.model.OrderStatus;
 import com.hhplus.commerce.domain.product.ProductRepository;
-import com.hhplus.commerce.domain.product.ProductRepositoryMemoryImpl;
 import com.hhplus.commerce.domain.product.entity.Product;
-import com.hhplus.commerce.domain.stock.*;
+import com.hhplus.commerce.domain.stock.StockHistoryRepository;
+import com.hhplus.commerce.domain.stock.StockRepository;
+import com.hhplus.commerce.domain.stock.StockService;
+import com.hhplus.commerce.domain.stock.StockServiceImpl;
 import com.hhplus.commerce.domain.stock.entity.Stock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@DataJpaTest
 class OrderProcessServiceTest {
 
     OrderProcessService orderProcessService;
+    @Autowired
     ProductRepository productRepository;
+    @Autowired
     StockRepository stockRepository;
+    @Autowired
     AccountRepository accountRepository;
 
     OrderRepository orderRepository;
@@ -36,18 +44,20 @@ class OrderProcessServiceTest {
     OrderItemService orderItemService;
     StockService stockService;
     AccountService accountService;
+    @Autowired
     OrderItemRepository orderItemRepository;
 
+    @Autowired
     private StockHistoryRepository stockHistoryRepository;
 
     @BeforeEach
     void beforeEach() {
-        productRepository = new ProductRepositoryMemoryImpl();
-        stockRepository = new StockRepositoryMemoryImpl();
-        accountRepository = new AccountRepositoryMemoryImpl();
-        orderRepository = new OrderRepositoryMemoryImpl();
-        orderItemRepository = new OrderItemRepositoryMemoryImpl();
-        stockHistoryRepository = new StockHistoryRepositoryMemoryImpl();
+//        productRepository = new ProductRepositoryMemoryImpl();
+//        stockRepository = new StockRepositoryMemoryImpl();
+//        accountRepository = new AccountRepositoryMemoryImpl();
+//        orderRepository = new OrderRepositoryMemoryImpl();
+//        orderItemRepository = new OrderItemRepositoryMemoryImpl();
+//        stockHistoryRepository = new StockHistoryRepositoryMemoryImpl();
         accountRepository = new AccountRepositoryMemoryImpl();
 
         orderService = new OrderServiceImpl(orderRepository, accountRepository);
@@ -70,8 +80,8 @@ class OrderProcessServiceTest {
         Product product1 = Product.of(productId, "상품1", 100L);
         Product product2 = Product.of(productId + 1, "상품2", 200L);
         accountRepository.insert(new Account(accountId, 1L, 10000L));
-        productRepository.insert(product1);
-        productRepository.insert(product2);
+        productRepository.save(product1);
+        productRepository.save(product2);
         stockRepository.insert(Stock.of(null, product1, stock));
         stockRepository.insert(Stock.of(null, product2, stock));
 
@@ -95,7 +105,7 @@ class OrderProcessServiceTest {
 
         assertThat(accountRepository.findByIdOrElseThrow(accountId).getBalance()).isEqualTo(8000L);
 
-        assertThat(stockRepository.findByProductIdOrElseThrow(productId).getStock()).isEqualTo(100L - 10L);
+        assertThat(stockRepository.findByIdOrElseThrow(productId).getStock()).isEqualTo(100L - 10L);
     }
 
 

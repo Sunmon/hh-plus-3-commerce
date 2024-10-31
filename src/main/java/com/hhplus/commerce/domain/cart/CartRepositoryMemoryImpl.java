@@ -1,15 +1,13 @@
-package com.hhplus.commerce.domain;
+package com.hhplus.commerce.domain.cart;
 
-import com.hhplus.commerce.domain.cart.CartRepository;
 import com.hhplus.commerce.domain.cart.entity.Cart;
-import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Repository
 public class CartRepositoryMemoryImpl implements CartRepository {
 
     Map<Long, Cart> db = new HashMap<>();
@@ -28,12 +26,12 @@ public class CartRepositoryMemoryImpl implements CartRepository {
     }
 
     @Override
-    public Cart selectById(Long id) {
-        return db.get(id);
+    public Optional<Cart> findById(Long id) {
+        return Optional.ofNullable(db.get(id));
     }
 
     @Override
-    public List<Cart> selectAllByUserId(Long userId) {
+    public List<Cart> findAllByUserId(Long userId) {
         return db.entrySet().stream().filter(entry -> entry.getValue().getUserId().equals(userId)).map(Map.Entry::getValue).toList();
     }
 

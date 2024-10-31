@@ -4,9 +4,12 @@ import com.hhplus.commerce.domain.stock.entity.StockHistory;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface StockHistoryRepository {
-    StockHistory insert(StockHistory stockHistory);
+    StockHistory save(StockHistory stockHistory);
+
+    Optional<StockHistory> findById(Long id);
 
     StockHistory findByIdOrElseThrow(Long id) throws IllegalArgumentException;
 

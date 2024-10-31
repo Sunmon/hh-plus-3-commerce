@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order createOrder(Long accountId) {
         Account account = accountRepository.findByIdOrElseThrow(accountId);
-        return orderRepository.insert(Order.of(null, account, 0L, OrderStatus.PENDING));
+        return orderRepository.save(Order.of(null, account, 0L, OrderStatus.PENDING));
     }
 
 

@@ -12,7 +12,7 @@ public enum OrderErrorCode implements ErrorCode {
     STOCK_FAILURE(HttpStatus.CONFLICT, "Stock failure"),
     PAYMENT_FAILED(HttpStatus.CONFLICT, "Payment failed"),
     ALREADY_ORDERED(HttpStatus.CONFLICT, "Already ordered"),
-    ;
+    ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "Order not found");
     private final HttpStatus httpStatus;
     private final String message;
 }

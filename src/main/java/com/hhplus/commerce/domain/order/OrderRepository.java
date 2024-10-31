@@ -9,6 +9,6 @@ public interface OrderRepository {
 
     Order findByIdOrElseThrow(Long orderId) throws IllegalArgumentException;
 
-    Order insert(Order order);
+    Order save(Order order);
 
 }

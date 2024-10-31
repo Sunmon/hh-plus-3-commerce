@@ -1,34 +1,43 @@
 package com.hhplus.commerce.domain.order;
 
 import com.hhplus.commerce.domain.account.AccountRepository;
-import com.hhplus.commerce.domain.account.AccountRepositoryMemoryImpl;
 import com.hhplus.commerce.domain.order.entity.Order;
 import com.hhplus.commerce.domain.order.entity.OrderItem;
 import com.hhplus.commerce.domain.order.model.OrderStatus;
 import com.hhplus.commerce.domain.product.ProductRepository;
-import com.hhplus.commerce.domain.product.ProductRepositoryMemoryImpl;
 import com.hhplus.commerce.domain.product.ProductService;
 import com.hhplus.commerce.domain.product.ProductServiceImpl;
 import com.hhplus.commerce.domain.product.entity.Product;
-import com.hhplus.commerce.domain.stock.*;
+import com.hhplus.commerce.domain.stock.StockHistoryRepository;
+import com.hhplus.commerce.domain.stock.StockRepository;
+import com.hhplus.commerce.domain.stock.StockService;
+import com.hhplus.commerce.domain.stock.StockServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SpringBootTest
 public class OrderItemServiceTest {
 
+    @Autowired
     private ProductRepository productRepository;
+    @Autowired
     private OrderItemRepository orderItemRepository;
 //    private OrderService orderService;
 
     private OrderItemService orderItemService;
     private OrderService orderService;
+    @Autowired
     private OrderRepository orderRepository;
 
     private ProductService productService;
+    @Autowired
     private StockHistoryRepository stockHistoryRepository;
+    @Autowired
     private StockRepository stockRepository;
     private StockService stocksService;
 
@@ -38,11 +47,11 @@ public class OrderItemServiceTest {
     @BeforeEach
     void beforeEach() {
 //        orderRepository = new OrderRepositoryMemoryImpl();
-        productRepository = new ProductRepositoryMemoryImpl();
-        orderItemRepository = new OrderItemRepositoryMemoryImpl();
-        stockHistoryRepository = new StockHistoryRepositoryMemoryImpl();
-        accountRepository = new AccountRepositoryMemoryImpl();
-        stockRepository = new StockRepositoryMemoryImpl();
+//        productRepository = new ProductRepositoryMemoryImpl();
+//        orderItemRepository = new OrderItemRepositoryMemoryImpl();
+//        stockHistoryRepository = new StockHistoryRepositoryMemoryImpl();
+//        accountRepository = new AccountRepositoryMemoryImpl();
+//        stockRepository = new StockRepositoryMemoryImpl();
         stocksService = new StockServiceImpl(stockRepository, stockHistoryRepository);
 
         orderService = new OrderServiceImpl(orderRepository, accountRepository);
@@ -53,7 +62,7 @@ public class OrderItemServiceTest {
 //        orderService = new OrderServiceImpl(orderRepository, orderItemRepository);
 //        Order order = new Order();
         Product product = Product.of(1L, "상품1", 100L);
-        productRepository.insert(product);
+        productRepository.save(product);
 //        orderRepository.insert(order);
 ////        OrderItem orderItem = new OrderItem(1L, 1L, 1L, "상품1", 10L, 100L, 10000L);
 //        OrderItem orderItem = new OrderItem(1L, order, product, 10L, 100L, 10000L);

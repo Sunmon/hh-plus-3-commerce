@@ -8,21 +8,27 @@ import com.hhplus.commerce.domain.product.entity.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@DataJpaTest
 public class OrderServiceTest {
+    @Autowired
     private OrderRepository orderRepository;
+    @Autowired
     private OrderItemRepository orderItemRepository;
     private OrderService orderService;
 
+    @Autowired
     private AccountRepository accountRepository;
 
     @BeforeEach
     void beforeEach() {
-        orderRepository = new OrderRepositoryMemoryImpl();
-        orderItemRepository = new OrderItemRepositoryMemoryImpl();
+//        orderRepository = new OrderRepositoryMemoryImpl();
+//        orderItemRepository = new OrderItemRepositoryMemoryImpl();
         orderService = new OrderServiceImpl(orderRepository, accountRepository);
         Order order = new Order();
         Product product = new Product();
@@ -39,10 +45,10 @@ public class OrderServiceTest {
         Long orderId = 1L;
         Order order = Order.of(1L, null, 100L);
         Product product = new Product();
-        orderRepository.insert(order);
+        orderRepository.save(order);
 //        OrderItem orderItem = new OrderItem(1L, 1L, 1L, "상품1", 10L, 100L, 10000L);
         OrderItem orderItem = new OrderItem(1L, order, product, 10L, 100L, 10000L);
-        orderItemRepository.insert(orderItem);
+        orderItemRepository.save(orderItem);
         // when
 //        Map<Order, OrderItems> orderDetail = orderService.getOrder(orderId);
         Order orderDetail = orderService.getOrder(orderId);

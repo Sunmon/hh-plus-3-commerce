@@ -4,18 +4,23 @@ import com.hhplus.commerce.domain.account.entity.Account;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@SpringBootTest
 public class AccountServiceTest {
+    @Autowired
     private AccountRepository accountRepository;
+    @Autowired
     private AccountService accountService;
 
     @BeforeEach
     void beforeEach() {
-        accountRepository = new AccountRepositoryMemoryImpl();
-        accountService = new AccountServiceImpl(accountRepository);
+//        accountRepository = new AccountRepositoryMemoryImpl();
+//        accountService = new AccountServiceImpl(accountRepository);
     }
 
     @DisplayName("계좌 IO로 정보 조회")
