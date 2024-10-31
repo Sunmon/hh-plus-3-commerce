@@ -12,8 +12,8 @@ import java.util.Optional;
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {
 
-    AccountRepositoryMemoryImpl accountRepositoryMemory;
-    AccountJpaRepository accountJpaRepository;
+    final AccountRepositoryMemoryImpl accountRepositoryMemory;
+    final AccountJpaRepository accountJpaRepository;
 
     @Override
     public Optional<Account> findById(Long accountId) {

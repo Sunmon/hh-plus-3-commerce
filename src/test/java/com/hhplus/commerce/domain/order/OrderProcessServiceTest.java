@@ -1,7 +1,6 @@
 package com.hhplus.commerce.domain.order;
 
 import com.hhplus.commerce.domain.account.AccountRepository;
-import com.hhplus.commerce.domain.account.AccountRepositoryMemoryImpl;
 import com.hhplus.commerce.domain.account.AccountService;
 import com.hhplus.commerce.domain.account.AccountServiceImpl;
 import com.hhplus.commerce.domain.account.entity.Account;
@@ -58,7 +57,7 @@ class OrderProcessServiceTest {
 //        orderRepository = new OrderRepositoryMemoryImpl();
 //        orderItemRepository = new OrderItemRepositoryMemoryImpl();
 //        stockHistoryRepository = new StockHistoryRepositoryMemoryImpl();
-        accountRepository = new AccountRepositoryMemoryImpl();
+//        accountRepository = new AccountRepositoryMemoryImpl();
 
         orderService = new OrderServiceImpl(orderRepository, accountRepository);
 //        orderItemService = new OrderItemServiceImpl(orderItemRepository);

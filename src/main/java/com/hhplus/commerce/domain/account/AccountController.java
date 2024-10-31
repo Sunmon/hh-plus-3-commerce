@@ -17,8 +17,6 @@ public class AccountController {
 
     @GetMapping(value = "/{accountId}")
     public ResponseEntity<AccountResponse> getAccount(@PathVariable Long accountId) {
-
-
         AccountResponse accountResponse = new AccountResponse(accountService.getAccountInfo(accountId));
         return ResponseEntity.ok(accountResponse);
     }

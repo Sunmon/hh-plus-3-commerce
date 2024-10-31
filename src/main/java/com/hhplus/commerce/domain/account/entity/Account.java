@@ -1,8 +1,6 @@
 package com.hhplus.commerce.domain.account.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +14,7 @@ import lombok.Setter;
 @Table(name = "accounts")
 public class Account {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     // users 테이블은 본 서비스에서 사실상 사용하지 않기 때문에 빠른 개발을 위해 연관관계를 맺지 않음.
     private Long userId;
