@@ -1,6 +1,8 @@
 package com.hhplus.commerce.globals;
 
 import com.hhplus.commerce.domain.common.exception.*;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -23,7 +26,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     // 표준 에러를 처리하는 핸들러
     @ExceptionHandler(value = IllegalArgumentException.class)
-    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException e) {
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex, HttpServletRequest request) {
+        log.error("## Exception occured at URL: {} | Method: {} | message: {}", request.getRequestURI(), request.getMethod(), ex.getMessage(), ex);
         ErrorCode errorCode = CommonErrorCode.INVALID_PARAMETER;
         return handleError(errorCode);
     }
@@ -32,13 +36,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+        log.warn("# Validation failed at REQUEST: {} | STATUS: {}", request.getDescription(false), status);
+        log.warn("# Validation errors: {}", ex.getBindingResult().getAllErrors(), ex);
+
         return handleError(CommonErrorCode.METHOD_ARGUMENT_NOT_VALID, ex);
     }
 
     // 서비스 로직에서 발생하는 예외를 처리하는 핸들러
     @ExceptionHandler(value = CustomException.class)
-    public ResponseEntity<ErrorResponse> handleCustomException(CustomException e) {
-        return handleError(e.getErrorCode(), e.getErrorInfo());
+    public ResponseEntity<ErrorResponse> handleCustomException(CustomException ex, HttpServletRequest request) {
+        log.error("## Custom Exception occured at URL: {} | Method: {} | message: {}", request.getRequestURI(), request.getMethod(), ex.getErrorCode(), ex);
+        return handleError(ex.getErrorCode(), ex.getErrorInfo());
     }
 
     private ResponseEntity<Object> handleError(ErrorCode errorCode, BindException bindException) {
