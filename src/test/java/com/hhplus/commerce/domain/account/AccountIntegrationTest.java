@@ -41,6 +41,9 @@ public class AccountIntegrationTest {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private AccountHistoryService accountHistoryService;
+
     @BeforeEach
     public void setup() {
         Account account = Account.of(1L, 10000L);
@@ -66,21 +69,14 @@ public class AccountIntegrationTest {
     }
 
 
-    //    @Test
     @ParameterizedTest
-    @ValueSource(strings = {"-500", "-1000"})
+    @ValueSource(longs = {-500L, -1000L})
     @NullSource
-    public void 유효하지_않은_파라미터로_요청시_오류를_반환한다(String amount) throws Exception {
+    public void 유효하지_않은_파라미터로_요청시_오류를_반환한다(Long amount) throws Exception {
         // Given
         Long accountId = 1L;
-        Long value;
-        if (amount == null) {
-            value = null;
-        } else {
-            value = Long.valueOf(amount);
-        }
 
-        AccountDepositRequest request = new AccountDepositRequest(accountId, value);
+        AccountDepositRequest request = new AccountDepositRequest(accountId, amount);
 
         // When
         MockHttpServletResponse response = mockMvc.perform(post("/api/v1/accounts/deposit")
@@ -131,6 +127,8 @@ public class AccountIntegrationTest {
         AccountResponse accountResponse = objectMapper.readValue(response.getContentAsString(), AccountResponse.class);
         assertThat(accountResponse.id()).isEqualTo(accountId);
         assertThat(accountResponse.balance()).isGreaterThanOrEqualTo(initBalance + amount);
+//        assertThat(accountHistoryService.getHistories(accountId).get(0)).type.isEqualTo(AccountType.DEPOSIT);
+//        assertThat(accountHistoryService.getHistories(accountId).get(0)).success.isEqualTo(true);
     }
 
 
