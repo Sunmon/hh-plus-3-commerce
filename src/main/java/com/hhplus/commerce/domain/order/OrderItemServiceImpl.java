@@ -78,4 +78,9 @@ public class OrderItemServiceImpl implements OrderItemService {
     public OrderItems getOrderItemsByOrderId(Long orderId) {
         return new OrderItems(orderItemRepository.findAllByOrderId(orderId));
     }
+
+    @Override
+    public OrderItems getOrderItemsByProductId(Long productId) {
+        return OrderItems.of(orderItemRepository.findAllByProductId(productId));
+    }
 }

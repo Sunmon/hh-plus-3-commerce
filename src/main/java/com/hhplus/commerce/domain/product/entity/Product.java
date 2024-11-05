@@ -45,4 +45,8 @@ public class Product {
         this.id = id;
         return this;
     }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
 }

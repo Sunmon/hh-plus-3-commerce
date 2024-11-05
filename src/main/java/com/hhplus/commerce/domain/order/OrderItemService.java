@@ -24,6 +24,8 @@ public interface OrderItemService {
     OrderItems createOrderItems(Long id, List<OrderItemRequest> orderItemRequests);
 
     OrderItems getOrderItemsByOrderId(Long orderId);
+
+    OrderItems getOrderItemsByProductId(Long productId);
 //    OrderItem insert(OrderItem orderItem);
 //    List<OrderItem> saveAll(List<OrderItem> orderItems);
 //    List<OrderItem> findByOrderId(Long orderId);

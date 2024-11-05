@@ -25,4 +25,8 @@ public class OrderItems {
         return orderItems.stream()
                 .mapToLong(orderItem -> orderItem.getProduct().getId()).boxed().toList();
     }
+
+    public int size() {
+        return orderItems.size();
+    }
 }

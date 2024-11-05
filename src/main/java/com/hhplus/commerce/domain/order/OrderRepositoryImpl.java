@@ -6,14 +6,15 @@ import com.hhplus.commerce.domain.order.model.OrderErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 @Repository
 public class OrderRepositoryImpl implements OrderRepository {
 
-    OrderJpaRepository orderJpaRepository;
-    OrderRepositoryMemoryImpl orderRepositoryMemoryImpl;
+    private final OrderJpaRepository orderJpaRepository;
+    private final OrderRepositoryMemoryImpl orderRepositoryMemoryImpl;
 
     @Override
     public Optional<Order> findById(Long orderId) {
@@ -28,5 +29,10 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public Order save(Order order) {
         return orderJpaRepository.save(order);
+    }
+
+    @Override
+    public List<Order> findAllByAccountId(Long accountId) {
+        return orderJpaRepository.findAllByAccount_Id(accountId);
     }
 }

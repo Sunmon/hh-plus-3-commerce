@@ -13,4 +13,6 @@ public interface ProductRepository {
     Product save(Product product);
 
     List<Product> saveAll(List<Product> products);
+
+    List<Product> findAllByName(String name);
 }

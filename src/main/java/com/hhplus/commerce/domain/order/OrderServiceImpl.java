@@ -49,6 +49,11 @@ public class OrderServiceImpl implements OrderService {
         order.updateStatus(orderStatus);
         return order;
     }
+    
+    @Override
+    public List<Order> getOrderByAccountId(Long accountId) {
+        return orderRepository.findAllByAccountId(accountId);
+    }
 
     private Order updateOrderStatus(Long orderId, OrderStatus orderStatus) throws IllegalArgumentException {
         Order order = orderRepository.findByIdOrElseThrow(orderId);

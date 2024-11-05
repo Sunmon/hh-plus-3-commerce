@@ -2,6 +2,7 @@ package com.hhplus.commerce.domain.order;
 
 import com.hhplus.commerce.domain.order.entity.Order;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface OrderRepository {
@@ -11,4 +12,5 @@ public interface OrderRepository {
 
     Order save(Order order);
 
+    List<Order> findAllByAccountId(Long accountId);
 }

@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class OrderItemRepositoryImpl implements OrderItemRepository {
-    OrderItemRepositoryMemoryImpl orderItemRepositoryMemory;
-    OrderItemJpaRepository orderItemJpaRepository;
+    private final OrderItemRepositoryMemoryImpl orderItemRepositoryMemory;
+    private final OrderItemJpaRepository orderItemJpaRepository;
 
     @Override
     public Optional<OrderItem> findById(Long orderItemId) {
@@ -36,5 +36,10 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
     @Override
     public List<OrderItem> findAllByOrderId(Long orderId) {
         return orderItemJpaRepository.findAllByOrder_Id(orderId);
+    }
+
+    @Override
+    public List<OrderItem> findAllByProductId(Long productId) {
+        return orderItemJpaRepository.findAllByProduct_Id(productId);
     }
 }

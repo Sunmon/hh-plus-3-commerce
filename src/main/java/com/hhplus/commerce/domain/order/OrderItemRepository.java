@@ -17,4 +17,7 @@ public interface OrderItemRepository {
 
 
     List<OrderItem> findAllByOrderId(Long orderId);
+
+
+    List<OrderItem> findAllByProductId(Long productId);
 }

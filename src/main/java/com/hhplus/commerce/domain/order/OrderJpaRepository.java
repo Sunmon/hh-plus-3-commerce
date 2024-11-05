@@ -4,8 +4,9 @@ import com.hhplus.commerce.domain.order.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface OrderJpaRepository extends JpaRepository<Order, Long> {
-
-
+    List<Order> findAllByAccount_Id(Long accountId);
 }

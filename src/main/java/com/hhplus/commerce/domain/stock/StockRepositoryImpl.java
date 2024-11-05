@@ -1,6 +1,7 @@
 package com.hhplus.commerce.domain.stock;
 
 import com.hhplus.commerce.domain.common.exception.CustomException;
+import com.hhplus.commerce.domain.product.entity.Product;
 import com.hhplus.commerce.domain.stock.entity.Stock;
 import com.hhplus.commerce.domain.stock.model.StockErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -34,5 +35,10 @@ public class StockRepositoryImpl implements StockRepository {
     @Override
     public Optional<Stock> findByProductId(Long productId) {
         return stockJpaRepository.findByProduct_Id(productId);
+    }
+
+    @Override
+    public Stock findByProduct(Product product) {
+        return stockJpaRepository.findByProduct(product);
     }
 }

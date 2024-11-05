@@ -18,4 +18,6 @@ public interface StockService {
     StockHistory insertHistory(Long productId, Long orderId, Long quantity, Long price, OrderStatus orderStatus);
 
     List<StockHistory> findByTimestampBetween(LocalDateTime from, LocalDateTime to);
+
+    List<StockHistory> getHistoriesByOrderId(Long aLong);
 }

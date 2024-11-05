@@ -20,4 +20,7 @@ public interface OrderService {
     Order order(OrderRequest orderRequest);
 
     Order updateOrderStatus(Order order, OrderStatus orderStatus);
+
+
+    List<Order> getOrderByAccountId(Long accountId);
 }

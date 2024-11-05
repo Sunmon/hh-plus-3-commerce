@@ -1,5 +1,6 @@
 package com.hhplus.commerce.domain.stock;
 
+import com.hhplus.commerce.domain.product.entity.Product;
 import com.hhplus.commerce.domain.stock.entity.Stock;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface StockRepository {
 
     Optional<Stock> findByProductId(Long productId);
 
+    Stock findByProduct(Product product);
 }

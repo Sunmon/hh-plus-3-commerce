@@ -46,4 +46,9 @@ class StockServiceImpl implements StockService {
         return stockHistoryRepository.findByTimestampBetween(from, to);
     }
 
+    @Override
+    public List<StockHistory> getHistoriesByOrderId(Long aLong) {
+        return null;
+    }
+
 }

@@ -1,10 +1,12 @@
 package com.hhplus.commerce.domain.order;
 
 import com.hhplus.commerce.domain.order.entity.OrderItem;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Repository
 public class OrderItemRepositoryMemoryImpl {
     Map<Long, OrderItem> db = new HashMap<>();
     AtomicLong atomicId = new AtomicLong(1L);

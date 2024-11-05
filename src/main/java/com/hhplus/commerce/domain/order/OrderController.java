@@ -1,5 +1,6 @@
 package com.hhplus.commerce.domain.order;
 
+import com.hhplus.commerce.domain.account.entity.Account;
 import com.hhplus.commerce.domain.common.exception.ErrorResponse;
 import com.hhplus.commerce.domain.order.dto.OrderRequest;
 import com.hhplus.commerce.domain.order.dto.OrderResponse;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -38,7 +40,9 @@ public class OrderController {
 //        OrderResponse orderResponse = new OrderResponse(productId, 1L, null, null, null, 0L, null);
         Order order = orderService.getOrder(orderId);
         OrderItems orderItems = orderItemService.getOrderItemsByOrderId(orderId);
-        return ResponseEntity.ok(new OrderResponse(null, null));
+//        return ResponseEntity.ok(new OrderResponse(null, null));
+        return ResponseEntity.ok(new OrderResponse(Order.of(1L, Account.of(1L, 0L), 1000L), OrderItems.of(List.of())));
+
 //        return ResponseEntity.ok(null);
     }
 
@@ -58,6 +62,7 @@ public class OrderController {
         // 좋은 방법 없을까요?
 //        List<OrderItems> = orderRequest.orderItems().stream().map(orderItem -> new OrderItem(orderItem.productId(), orderItem.quantity())).collect(Collectors.toList());
         Map<Order, OrderItems> order = orderService.order(null, null);
-        return ResponseEntity.ok(new OrderResponse(null, null));
+//        return ResponseEntity.ok(new OrderResponse(null, null));
+        return ResponseEntity.ok(new OrderResponse(Order.of(1L, Account.of(1L, 0L), 1000L), OrderItems.of(List.of())));
     }
 }
