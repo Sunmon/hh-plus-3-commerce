@@ -2,6 +2,13 @@
 
 e-커머스 상품 주문 서비스
 
+
+## Step 13_기본
+회가 오래 걸리는 쿼리에 대한 캐싱, 혹은 Redis 를 이용한 로직 이관을 통해 성능 개선할 수 있는 로직을 분석하고 이를 합리적인 이유와 함께 정리한 문서 제출 
+
+https://github.com/Sunmon/hh-plus-3-commerce/wiki/3.-%EA%B8%B0%ED%83%80#%EC%A1%B0%ED%9A%8C%EA%B0%80-%EC%98%A4%EB%9E%98-%EA%B1%B8%EB%A6%AC%EB%8A%94-%EC%BF%BC%EB%A6%AC%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B0%9C%EC%84%A0%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C
+
+
 ## Step8 변경 내역
 
 문서 업데이트
