@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 public enum AccountErrorCode implements ErrorCode {
     ACCOUNT_NOT_EXIST(HttpStatus.NOT_FOUND, "Account does not exist"),
     BALANCE_NOT_ENOUGH(HttpStatus.CONFLICT, "Balance is not enough"),
+    NOT_VALID_AMOUNT(HttpStatus.BAD_REQUEST, "Amount is not valid"),
     ;
 
     private final HttpStatus httpStatus;

@@ -1,5 +1,7 @@
 package com.hhplus.commerce.domain.account.entity;
 
+import com.hhplus.commerce.domain.account.model.AccountErrorCode;
+import com.hhplus.commerce.domain.common.exception.CustomException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +36,7 @@ public class Account {
 
     public Account deposit(Long amount) {
         if (amount < 0) {
-            throw new IllegalArgumentException("NOT_VALID_AMOUNT");
+            throw new CustomException(AccountErrorCode.NOT_VALID_AMOUNT);
         }
         this.balance += amount;
         return this;
@@ -42,10 +44,10 @@ public class Account {
 
     public Account withdraw(Long amount) {
         if (amount < 0) {
-            throw new IllegalArgumentException("NOT_VALID_AMOUNT");
+            throw new CustomException(AccountErrorCode.NOT_VALID_AMOUNT);
         }
         if (this.balance - amount < 0) {
-            throw new IllegalArgumentException("NOT_ENOUGH_BALANCE");
+            throw new CustomException(AccountErrorCode.BALANCE_NOT_ENOUGH);
         }
         this.balance -= amount;
         return this;
