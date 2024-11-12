@@ -1,8 +1,6 @@
 package com.hhplus.commerce.domain.order;
 
-import com.hhplus.commerce.domain.account.AccountRepository;
-import com.hhplus.commerce.domain.account.AccountService;
-import com.hhplus.commerce.domain.account.AccountServiceImpl;
+import com.hhplus.commerce.domain.account.*;
 import com.hhplus.commerce.domain.account.entity.Account;
 import com.hhplus.commerce.domain.order.dto.OrderItemRequest;
 import com.hhplus.commerce.domain.order.entity.Order;
@@ -37,11 +35,16 @@ class OrderProcessServiceTest {
     @Autowired
     AccountRepository accountRepository;
 
+    @Autowired
+    AccountHistoryJpaRepository accountHistoryJpaRepository;
+
     OrderRepository orderRepository;
 
     OrderService orderService;
     OrderItemService orderItemService;
     StockService stockService;
+
+    AccountHistoryService accountHistoryService;
     AccountService accountService;
     @Autowired
     OrderItemRepository orderItemRepository;
@@ -62,7 +65,8 @@ class OrderProcessServiceTest {
         orderService = new OrderServiceImpl(orderRepository, accountRepository);
 //        orderItemService = new OrderItemServiceImpl(orderItemRepository);
         stockService = new StockServiceImpl(stockRepository, stockHistoryRepository);
-        accountService = new AccountServiceImpl(accountRepository);
+        accountHistoryService = new AccountHistoryService(accountHistoryJpaRepository);
+        accountService = new AccountServiceImpl(accountRepository, accountHistoryService);
 
         orderProcessService = new OrderProcessServiceImpl(orderService, orderItemService, stockService, accountService);
 

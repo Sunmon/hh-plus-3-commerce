@@ -40,4 +40,12 @@ public class AccountHistory {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    public static AccountHistory of(Long accountId, Long currentBalance, Long transactionAmount, Long newBalance, TransactionType transactionType, TransactionStatus transactionStatus) {
+        return new AccountHistory(null, accountId, currentBalance, transactionAmount, newBalance, transactionType, transactionStatus, LocalDateTime.now(), LocalDateTime.now());
+    }
+
+    public void updateTransactionStatus(TransactionStatus transactionStatus) {
+        this.transactionStatus = transactionStatus;
+    }
+
 }

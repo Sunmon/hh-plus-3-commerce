@@ -2,6 +2,7 @@ package com.hhplus.commerce.domain.account;
 
 import com.hhplus.commerce.domain.account.entity.Account;
 import com.hhplus.commerce.domain.account.model.AccountErrorCode;
+import com.hhplus.commerce.domain.account.model.TransactionStatus;
 import com.hhplus.commerce.domain.common.exception.CustomException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,19 +13,25 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class AccountServiceTest {
 
     @Mock
     private AccountRepository accountRepository;
+    @Mock
+    private AccountHistoryJpaRepository accountHistoryJpaRepository;
 
     private AccountService accountService;
 
+    //    private AccountHistoryJpaRepository accountHistoryJpaRepository;
+    @Mock
+    private AccountHistoryService accountHistoryService;
+
     @BeforeEach
     void beforeEach() {
-        accountService = new AccountServiceImpl(accountRepository);
+        accountService = new AccountServiceImpl(accountRepository, accountHistoryService);
     }
 
 
@@ -74,7 +81,7 @@ public class AccountServiceTest {
 
 
     @Test
-    void 계좌를_출금한다() {
+    void 계좌에서_출금한다() {
         //given
         Long accountId = 1L;
         Long balance = 1000L;
@@ -84,11 +91,13 @@ public class AccountServiceTest {
         when(accountRepository.save(any(Account.class))).thenReturn(Account.of(accountId, accountId, balance - amount));
 
         // when
-        Account result = accountService.deposit(accountId, amount);
+        Account result = accountService.withdraw(accountId, amount);
 
         // then
         assertThat(result.getId()).isEqualTo(accountId);
         assertThat(result.getBalance()).isEqualTo(balance - amount);
+        verify(accountHistoryService).saveWithdrawHistory(accountId, balance, amount, TransactionStatus.SUCCESS);
+
     }
 
     @Test
@@ -103,6 +112,7 @@ public class AccountServiceTest {
         assertThatThrownBy(() -> accountService.deposit(accountId, amount))
                 .isInstanceOf(CustomException.class)
                 .hasMessage(AccountErrorCode.ACCOUNT_NOT_EXIST.getMessage());
+        verify(accountHistoryService, times(0)).saveDepositHistory(accountId, 0L, amount, TransactionStatus.SUCCESS);
     }
 
     @Test
@@ -123,6 +133,8 @@ public class AccountServiceTest {
         assertThatThrownBy(() -> accountService.withdraw(accountId, amount))
                 .isInstanceOf(CustomException.class)
                 .hasMessage(AccountErrorCode.NOT_VALID_AMOUNT.getMessage());
+        verify(accountHistoryService, times(0)).saveDepositHistory(accountId, 0L, amount, TransactionStatus.SUCCESS);
+
     }
 
     @Test
@@ -138,6 +150,7 @@ public class AccountServiceTest {
         assertThatThrownBy(() -> accountService.withdraw(accountId, amount))
                 .isInstanceOf(CustomException.class)
                 .hasMessage(AccountErrorCode.BALANCE_NOT_ENOUGH.getMessage());
+        verify(accountHistoryService).saveWithdrawHistory(accountId, balance, amount, TransactionStatus.FAIL);
     }
 
 }
